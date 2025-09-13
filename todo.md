@@ -21,4 +21,4 @@ create api passes for fred and tradingeconomics find how to use newspapers3k or 
                  -> data transform 
                  -> exploratory data analysis
                  -> transformers (huggingface)
-6) streamlit basic financial dashboard 
+6) streamlit basic financial dashboard (GUI)
