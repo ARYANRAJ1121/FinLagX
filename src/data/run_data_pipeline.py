@@ -6,9 +6,9 @@ from src.data.news_data import download_all_news
 if __name__ == "__main__":
     print("🚀 Starting FinLagX Data Pipeline...\n")
     
-    #download_all_assets()
+    download_all_assets()
     #download_all_macro()
-    download_all_news()
+    #download_all_news()
     #run_macro_api()
     #fetch_te_news()
     
