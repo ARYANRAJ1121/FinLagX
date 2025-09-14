@@ -1,4 +1,4 @@
-# src/data/news_data.py
+# src/data_ingestion/news_data.py
 
 import os
 import yaml

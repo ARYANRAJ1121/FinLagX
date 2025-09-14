@@ -1,7 +1,7 @@
-from src.data.market_data import download_all_assets
-from src.data.macro_data import download_all_macro
-from src.data.news_data import download_all_news
-from database_setup import test_connection, setup_timescaledb
+from src.data_ingestion.market_data import download_all_assets
+from src.data_ingestion.macro_data import download_all_macro
+from src.data_ingestion.news_data import download_all_news
+from src.data_storage.database_setup import test_connection, setup_timescaledb
 import logging
 
 # Set up logging
@@ -41,9 +41,9 @@ def run_full_pipeline():
 def show_pipeline_summary():
     """Show summary of data collected"""
     try:
-        from src.data.market_data import get_latest_data
-        from src.data.macro_data import get_latest_macro_values
-        from src.data.news_data import get_news_stats
+        from src.data_ingestion.market_data import get_latest_data
+        from src.data_ingestion.macro_data import get_latest_macro_values
+        from src.data_ingestion.news_data import get_news_stats
         
         logger.info("\n📋 PIPELINE SUMMARY:")
         logger.info("=" * 50)

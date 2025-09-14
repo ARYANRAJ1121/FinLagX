@@ -11,11 +11,12 @@ DB_CONFIG = {
     'database': os.getenv('DB_NAME', 'finlagx'),
     'user': os.getenv('DB_USER', 'postgres'),
     'password': os.getenv('DB_PASSWORD', 'finlagx_password')
-}
+}   
 
 def get_db_url():
     """Generate PostgreSQL connection URL"""
-    return f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
+    # Use trust authentication - no password needed
+    return f"postgresql://{DB_CONFIG['user']}@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
 
 def create_database():
     """Create the FinLagX database if it doesn't exist"""
@@ -25,8 +26,7 @@ def create_database():
             host=DB_CONFIG['host'],
             port=DB_CONFIG['port'],
             database='postgres',
-            user=DB_CONFIG['user'],
-            password=DB_CONFIG['password']
+            user=DB_CONFIG['user']
         )
         conn.autocommit = True
         cursor = conn.cursor()

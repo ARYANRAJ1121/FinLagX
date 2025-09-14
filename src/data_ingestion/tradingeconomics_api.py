@@ -1,4 +1,4 @@
-# src/data/tradingeconomics_api.py
+# src/data_ingestion/tradingeconomics_api.py
 import os
 import requests
 import pandas as pd

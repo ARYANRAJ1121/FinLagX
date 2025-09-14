@@ -1,19 +1,18 @@
-version: '3.8'
-
 services:
   timescaledb:
     image: timescale/timescaledb:latest-pg15
     container_name: finlagx_timescaledb
     restart: unless-stopped
     environment:
-      POSTGRES_DB: finlagx
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: finlagx_password
+      POSTGRES_DB: ${DB_NAME:-finlagx}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-finlagx_password}
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
       - timescale_data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
+      - "D:/FinLagX/init-scripts:/docker-entrypoint-initdb.d"
     networks:
       - finlagx_network
     healthcheck:
@@ -27,14 +26,13 @@ services:
     container_name: finlagx_mongodb
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: finlagx_mongo
-      MONGO_INITDB_DATABASE: finlagx_news
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-finlagx_mongo}
+      MONGO_INITDB_DATABASE: ${MONGO_DB:-finlagx_news}
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
-      - ./mongo-init:/docker-entrypoint-initdb.d
+      - "D:\\FinLagX\\init-scripts:/docker-entrypoint-initdb.d"
     networks:
       - finlagx_network
     healthcheck:
