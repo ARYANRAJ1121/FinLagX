@@ -23,8 +23,8 @@ def download_asset(ticker: str, name: str, category: str, start: str, end: str):
         category_dir = os.path.join(BASE_DATA_DIR, category)
         os.makedirs(category_dir, exist_ok=True)
 
-        file_path = os.path.join(category_dir, f"{name}.parquet")
-        df.to_parquet(file_path)
+        file_path = os.path.join(category_dir, f"{name}.csv")
+        df.to_csv(file_path)
         print(f"✅ Saved {name} -> {file_path}")
         return df
     except Exception as e:
