@@ -22,14 +22,28 @@ def process_and_analyze_market_data():
             if file.endswith(".csv"):
                 raw_file_path = os.path.join(root, file)
 
-                try:
-                    # Correctly read the CSV file, specifying the 'Date' column as the index and parsing dates
-                    df = pd.read_csv(raw_file_path, index_col='Date', parse_dates=True)
 
-                    # --- EDA & Preprocessing Steps ---
+                try:
+                    # Read CSV without forcing index_col, then parse 'Date' if present
+                    df = pd.read_csv(raw_file_path, parse_dates=True)
+                    # If 'Date' is a column, set as index for EDA/plotting
+                    if 'Date' in df.columns:
+                        df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+                        df.set_index('Date', inplace=True)
+
 
                     print(f"\n📊 Analyzing {file}...")
-                    
+
+                    # Convert all price/volume columns to numeric
+                    numeric_cols = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+                    for col in numeric_cols:
+                        if col in df.columns:
+                            df[col] = pd.to_numeric(df[col], errors='coerce')
+
+                    # Debug: print dtypes and head
+                    print(df.dtypes)
+                    print(df.head())
+
                     # Handle missing values using forward-fill
                     df.ffill(inplace=True)
                     print("\n✅ Missing values handled.")
@@ -40,7 +54,7 @@ def process_and_analyze_market_data():
                         print("📈 SMA_50 calculated.")
                     else:
                         print(f"⚠️ 'Close' column not found in {file}. Skipping SMA calculation.")
-                    
+
                     # Basic EDA: Plot Close Price vs. SMA
                     plt.figure(figsize=(10, 6))
                     plt.plot(df.index, df['Close'], label='Close Price')
@@ -53,13 +67,16 @@ def process_and_analyze_market_data():
                     plt.show()
 
                     # --- Save the processed data ---
+                    # Reset index so 'Date' is a column in output CSV
+                    df_reset = df.reset_index()
+                    
                     relative_path = os.path.relpath(raw_file_path, RAW_DATA_DIR)
                     processed_file_path = os.path.join(PROCESSED_DATA_DIR, relative_path)
-                    
+
                     processed_category_dir = os.path.dirname(processed_file_path)
                     os.makedirs(processed_category_dir, exist_ok=True)
-                    
-                    df.to_csv(processed_file_path, index=False)
+
+                    df_reset.to_csv(processed_file_path, index=False)
                     print(f"\n✅ Processed data saved to {processed_file_path}")
 
                 except Exception as e:
