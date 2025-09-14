@@ -1,4 +1,3 @@
-# src/data/macro_api.py
 import os
 import requests
 import pandas as pd
