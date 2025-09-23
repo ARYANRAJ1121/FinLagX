@@ -8,10 +8,11 @@ import sys
 
 def create_env_file():
     """Create .env file if it doesn't exist"""
-    if not os.path.exists('.env'):
-        print("📝 Creating .env file...")
-        with open('.env', 'w') as f:
-            f.write("""# Database Configuration
+    try:
+        if not os.path.exists('.env'):
+            print("📝 Creating .env file...")
+            with open('.env', 'w') as f:
+                f.write("""# Database Configuration
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=finlagx
@@ -28,24 +29,29 @@ MONGO_DB=finlagx_news
 # API Keys (add your keys here)
 FRED_API_KEY=your_fred_api_key_here
 """)
-        print("✅ Created .env file")
-    else:
-        print("✅ .env file already exists")
+            print("✅ Created .env file")
+        else:
+            print("✅ .env file already exists")
+        return True  # <-- ADD THIS LINE
+    except Exception as e:
+        print(f"❌ Error creating .env file: {e}")
+        return False
+
 
 def setup_docker():
     """Setup Docker containers"""
     print("🐳 Setting up Docker containers...")
-    
+
     # Stop and remove existing containers
     subprocess.run(['docker-compose', 'down'], capture_output=True)
-    
+
     # Remove volumes for fresh start
     subprocess.run(['docker', 'volume', 'prune', '-f'], capture_output=True)
-    
+
     # Start containers
-    result = subprocess.run(['docker-compose', 'up', '-d', 'timescaledb', 'mongodb'], 
+    result = subprocess.run(['docker-compose', 'up', '-d'],
                           capture_output=True, text=True)
-    
+
     if result.returncode == 0:
         print("✅ Docker containers started successfully")
         return True
@@ -58,11 +64,11 @@ def wait_for_containers():
     print("⏳ Waiting for containers to be ready...")
     import time
     time.sleep(15)  # Wait 15 seconds for containers to start
-    
+
     # Check if containers are running
-    result = subprocess.run(['docker', 'ps', '--filter', 'name=finlagx'], 
+    result = subprocess.run(['docker', 'ps', '--filter', 'name=finlagx'],
                           capture_output=True, text=True)
-    
+
     if 'finlagx_timescaledb' in result.stdout and 'finlagx_mongodb' in result.stdout:
         print("✅ Containers are running")
         return True
@@ -75,7 +81,7 @@ def setup_database():
     print("🗄️ Setting up database schema...")
     try:
         from src.data_storage.database_setup import create_database, setup_timescaledb, test_connection
-        
+
         create_database()
         setup_timescaledb()
         test_connection()
@@ -88,26 +94,26 @@ def setup_database():
 def main():
     """Main setup function"""
     print("🚀 FinLagX Setup Script\n")
-    
+
     steps = [
         ("Creating environment file", create_env_file),
         ("Setting up Docker", setup_docker),
         ("Waiting for containers", wait_for_containers),
         ("Setting up database", setup_database)
     ]
-    
+
     for step_name, step_func in steps:
         print(f"\n📋 {step_name}...")
         if not step_func():
             print(f"❌ Setup failed at: {step_name}")
             return False
-    
+
     print("\n🎉 FinLagX setup completed successfully!")
     print("\n📋 Next steps:")
     print("1. Add your API keys to .env file (FRED_API_KEY)")
     print("2. Run: python test_setup.py")
     print("3. Run: python -m src.data_ingestion.run_data_pipeline")
-    
+
     return True
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - timescale_data:/var/lib/postgresql/data
-      - "D:/FinLagX/init-scripts:/docker-entrypoint-initdb.d"
+      - "./init-scripts:/docker-entrypoint-initdb.d"
     networks:
       - finlagx_network
     healthcheck:
@@ -32,7 +32,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "D:\\FinLagX\\init-scripts:/docker-entrypoint-initdb.d"
+      - "./init-scripts:/docker-entrypoint-initdb.d"
     networks:
       - finlagx_network
     healthcheck:
