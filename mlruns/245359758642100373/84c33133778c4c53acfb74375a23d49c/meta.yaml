@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/aryanraj/Desktop/minor/FinLagX/mlruns/245359758642100373/84c33133778c4c53acfb74375a23d49c/artifacts
+end_time: 1759887830434
+entry_point_name: ''
+experiment_id: '245359758642100373'
+lifecycle_stage: active
+run_id: 84c33133778c4c53acfb74375a23d49c
+run_name: beautiful-pug-335
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759887825205
+status: 3
+tags: []
+user_id: aryanraj

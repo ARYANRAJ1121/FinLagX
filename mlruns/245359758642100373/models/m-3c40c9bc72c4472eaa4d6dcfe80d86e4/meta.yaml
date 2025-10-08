@@ -1,0 +1,10 @@
+artifact_location: file:///Users/aryanraj/Desktop/minor/FinLagX/mlruns/245359758642100373/models/m-3c40c9bc72c4472eaa4d6dcfe80d86e4/artifacts
+creation_timestamp: 1759887826600
+experiment_id: '245359758642100373'
+last_updated_timestamp: 1759887830226
+model_id: m-3c40c9bc72c4472eaa4d6dcfe80d86e4
+model_type: null
+name: lstm_model
+source_run_id: 84c33133778c4c53acfb74375a23d49c
+status: 2
+status_message: null
