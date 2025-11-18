@@ -82,10 +82,7 @@ def run_data_alignment():
     
     try:
         aligner = DataAligner()
-        df = aligner.create_complete_dataset(
-            alignment_type='same_day',
-            add_cross_asset=True
-        )
+        df = aligner.create_complete_dataset()
         
         if not df.empty:
             aligner.save_aligned_data(df)
