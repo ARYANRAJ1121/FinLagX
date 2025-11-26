@@ -33,7 +33,7 @@ class DataAligner:
         daily_news = news_df.groupby(['date', 'category']).size().reset_index(name='news_count')
         daily_news['date'] = pd.to_datetime(daily_news['date'])
         
-        logger.info(f"✅ Aggregated to {len(daily_news)} day-category pairs")
+        logger.info(f"  Aggregated to {len(daily_news)} day-category pairs")
         
         return daily_news
     
@@ -45,7 +45,7 @@ class DataAligner:
         logger.info(f"🔗 Aligning market and news data...")
         
         if market_df.empty:
-            logger.error("❌ Empty market data")
+            logger.error("  Empty market data")
             return pd.DataFrame()
         
         market_df = market_df.copy()
@@ -79,7 +79,7 @@ class DataAligner:
         news_cols = [col for col in merged.columns if 'news_' in col]
         merged[news_cols] = merged[news_cols].fillna(0)
         
-        logger.info(f"✅ Aligned: {len(merged)} rows, {len(merged.columns)} columns")
+        logger.info(f"  Aligned: {len(merged)} rows, {len(merged.columns)} columns")
         
         return merged
     
@@ -89,13 +89,13 @@ class DataAligner:
         Create simple aligned dataset
         Just: time, symbol, category, close_price, volume, returns, volatility, sma, news_counts
         """
-        logger.info("🚀 Creating lean aligned dataset...\n")
+        logger.info("  Creating lean aligned dataset...\n")
         
         # Get data
         market_df = get_processed_market_data(symbols, start_date, end_date)
         
         if market_df.empty:
-            logger.error("❌ No market data")
+            logger.error("  No market data")
             return pd.DataFrame()
         
         news_df = get_processed_news_data(categories, start_date, end_date)
@@ -110,7 +110,7 @@ class DataAligner:
         if 'date' in aligned_df.columns:
             aligned_df = aligned_df.drop('date', axis=1)
         
-        logger.info("\n✅ Lean dataset created!")
+        logger.info("\n  Lean dataset created!")
         logger.info(f"   Shape: {aligned_df.shape}")
         logger.info(f"   Symbols: {aligned_df['symbol'].nunique()}")
         logger.info(f"   Date range: {aligned_df['time'].min()} to {aligned_df['time'].max()}")
@@ -140,11 +140,11 @@ def load_aligned_data(filename='aligned_dataset.parquet'):
     filepath = os.path.join('data/processed', filename)
     
     if not os.path.exists(filepath):
-        logger.error(f"❌ File not found: {filepath}")
+        logger.error(f"  File not found: {filepath}")
         return pd.DataFrame()
     
     df = pd.read_parquet(filepath)
-    logger.info(f"✅ Loaded from {filepath}")
+    logger.info(f"  Loaded from {filepath}")
     logger.info(f"   Shape: {df.shape}")
     
     return df

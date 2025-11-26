@@ -176,7 +176,7 @@ def plot_dark_network():
     # Save
     save_path = "finlagx_dark_network.png"
     plt.savefig(save_path, dpi=300, bbox_inches='tight', facecolor=BACKGROUND_COLOR)
-    logger.info(f"✅ Saved Dark Mode Graph to {save_path}")
+    logger.info(f"  Saved Dark Mode Graph to {save_path}")
     plt.show()
 
 if __name__ == "__main__":

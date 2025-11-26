@@ -67,10 +67,10 @@ class VARAnalyzer:
         df = pd.read_sql(text(query), self.engine, params=params)
         
         if df.empty:
-            logger.error("❌ No data found in market_features table")
+            logger.error("  No data found in market_features table")
             return None
         
-        logger.info(f"✅ Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
+        logger.info(f"  Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
         logger.info(f"   Date range: {df['time'].min()} to {df['time'].max()}")
         
         return df
@@ -91,7 +91,7 @@ class VARAnalyzer:
         # Drop NaN values
         data_pivot = data_pivot.dropna()
         
-        logger.info(f"✅ Prepared data shape: {data_pivot.shape}")
+        logger.info(f"  Prepared data shape: {data_pivot.shape}")
         logger.info(f"   Symbols: {list(data_pivot.columns)}")
         logger.info(f"   Observations: {len(data_pivot)}")
         
@@ -117,7 +117,7 @@ class VARAnalyzer:
                     'is_stationary': is_stationary
                 }
                 
-                status = "✅ Stationary" if is_stationary else "⚠️ Non-stationary"
+                status = "  Stationary" if is_stationary else "⚠️ Non-stationary"
                 logger.info(f"   {col}: {status} (p={p_value:.4f})")
                 
             except Exception as e:
@@ -155,12 +155,12 @@ class VARAnalyzer:
                 logger.warning("   BIC suggested lag < 1; defaulting to lag=1")
                 optimal_lag = 1
             
-            logger.info(f"\n✅ Selected lag order (BIC): {optimal_lag}")
+            logger.info(f"\n  Selected lag order (BIC): {optimal_lag}")
             
             return optimal_lag
             
         except Exception as e:
-            logger.error(f"❌ Error in lag selection: {e}")
+            logger.error(f"  Error in lag selection: {e}")
             logger.info("   Using default lag=2")
             return 2
     
@@ -177,12 +177,12 @@ class VARAnalyzer:
             self.model = VAR(data)
             self.model_result = self.model.fit(lag_order)
             
-            logger.info(f"✅ VAR model fitted with lag order {self.model_result.k_ar}")
+            logger.info(f"  VAR model fitted with lag order {self.model_result.k_ar}")
             
             return self.model_result
             
         except Exception as e:
-            logger.error(f"❌ Error fitting VAR model: {e}")
+            logger.error(f"  Error fitting VAR model: {e}")
             return None
     
     def extract_var_features(self, data):
@@ -190,7 +190,7 @@ class VARAnalyzer:
         Extract VAR model features: fitted values, residuals
         """
         if self.model_result is None:
-            logger.error("❌ Model not fitted yet")
+            logger.error("  Model not fitted yet")
             return None
         
         logger.info("📊 Extracting VAR features...")
@@ -217,12 +217,12 @@ class VARAnalyzer:
             
             features_df = pd.concat(features_list, ignore_index=True)
             
-            logger.info(f"✅ Extracted VAR features: {features_df.shape}")
+            logger.info(f"  Extracted VAR features: {features_df.shape}")
             
             return features_df
             
         except Exception as e:
-            logger.error(f"❌ Error extracting features: {e}")
+            logger.error(f"  Error extracting features: {e}")
             return None
     
     def compute_impulse_responses(self, periods=10):
@@ -230,7 +230,7 @@ class VARAnalyzer:
         Compute impulse response functions
         """
         if self.model_result is None:
-            logger.error("❌ Model not fitted yet")
+            logger.error("  Model not fitted yet")
             return None
         
         logger.info(f"📈 Computing impulse responses ({periods} periods)...")
@@ -245,12 +245,12 @@ class VARAnalyzer:
                 columns=self.model_result.names
             )
             
-            logger.info("✅ Impulse responses computed")
+            logger.info("  Impulse responses computed")
             
             return irf_final
             
         except Exception as e:
-            logger.error(f"❌ Error computing IRF: {e}")
+            logger.error(f"  Error computing IRF: {e}")
             return None
     
     def save_results_to_database(self, features_df):
@@ -265,14 +265,14 @@ class VARAnalyzer:
         
         self.feature_store.save_var_features(features_df)
         
-        logger.info("✅ Results saved to var_features table")
+        logger.info("  Results saved to var_features table")
     
     def print_model_summary(self):
         """
         Print VAR model summary
         """
         if self.model_result is None:
-            logger.error("❌ Model not fitted yet")
+            logger.error("  Model not fitted yet")
             return
         
         logger.info("\n" + "="*80)
@@ -296,7 +296,7 @@ class VARAnalyzer:
         df = self.fetch_market_features(symbols, start_date, end_date)
         
         if df is None or df.empty:
-            logger.error("❌ No data available for analysis")
+            logger.error("  No data available for analysis")
             return None
         
         # 2. Prepare data (using returns)
@@ -309,14 +309,14 @@ class VARAnalyzer:
         model_result = self.fit_var_model(data_pivot, lag_order)
         
         if model_result is None:
-            logger.error("❌ VAR model fitting failed")
+            logger.error("  VAR model fitting failed")
             return None
         
         # 5. Extract features
         features_df = self.extract_var_features(data_pivot)
         
         if features_df is None or features_df.empty:
-            logger.error("❌ Feature extraction failed")
+            logger.error("  Feature extraction failed")
             return None
         
         # 6. Save to database
@@ -362,9 +362,9 @@ def main():
     )
     
     if results is not None and not results.empty:
-        logger.info("\n✅ VAR analysis completed successfully!")
+        logger.info("\n  VAR analysis completed successfully!")
     else:
-        logger.error("\n❌ Analysis failed or returned no results")
+        logger.error("\n  Analysis failed or returned no results")
 
 
 if __name__ == "__main__":

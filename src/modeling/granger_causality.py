@@ -66,10 +66,10 @@ class GrangerCausalityAnalyzer:
         df = pd.read_sql(text(query), self.engine, params=params)
         
         if df.empty:
-            logger.error("❌ No data found in market_features table")
+            logger.error("  No data found in market_features table")
             return None
         
-        logger.info(f"✅ Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
+        logger.info(f"  Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
         logger.info(f"   Date range: {df['time'].min()} to {df['time'].max()}")
         
         return df
@@ -93,7 +93,7 @@ class GrangerCausalityAnalyzer:
         # Drop NaN values
         returns_pivot = returns_pivot.dropna()
         
-        logger.info(f"✅ Prepared data shape: {returns_pivot.shape}")
+        logger.info(f"  Prepared data shape: {returns_pivot.shape}")
         logger.info(f"   Symbols: {list(returns_pivot.columns)}")
         
         return returns_pivot
@@ -152,7 +152,7 @@ class GrangerCausalityAnalyzer:
             }
             
         except Exception as e:
-            logger.error(f"❌ Error testing {asset_x} -> {asset_y}: {e}")
+            logger.error(f"  Error testing {asset_x} -> {asset_y}: {e}")
             return None
     
     def run_all_granger_tests(self, data):
@@ -189,7 +189,7 @@ class GrangerCausalityAnalyzer:
         
         if not results_df.empty:
             significant = results_df['is_significant'].sum()
-            logger.info(f"✅ Completed {len(results_df)} tests")
+            logger.info(f"  Completed {len(results_df)} tests")
             logger.info(f"   Significant relationships: {significant}/{len(results_df)}")
         else:
             logger.warning("⚠️ No valid test results")
@@ -207,7 +207,7 @@ class GrangerCausalityAnalyzer:
         
         self.feature_store.save_granger_results(results_df, computed_date)
         
-        logger.info("✅ Results saved to granger_results table")
+        logger.info("  Results saved to granger_results table")
     
     def get_top_relationships(self, results_df, top_n=20):
         """
@@ -235,7 +235,7 @@ class GrangerCausalityAnalyzer:
         df = self.fetch_market_features(symbols, start_date, end_date)
         
         if df is None or df.empty:
-            logger.error("❌ No data available for analysis")
+            logger.error("  No data available for analysis")
             return None
         
         # 2. Prepare data
@@ -295,9 +295,9 @@ def main():
     )
     
     if results is not None and not results.empty:
-        logger.info("\n✅ Granger causality analysis completed successfully!")
+        logger.info("\n  Granger causality analysis completed successfully!")
     else:
-        logger.error("\n❌ Analysis failed or returned no results")
+        logger.error("\n  Analysis failed or returned no results")
 
 
 if __name__ == "__main__":

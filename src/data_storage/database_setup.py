@@ -49,16 +49,16 @@ def test_connection():
         with engine.connect() as conn:
             result = conn.execute(text("SELECT version();"))
             version = result.fetchone()[0]
-            print(f"✅ Connected to FinLagX DB: {version.split(',')[0]}")
+            print(f"  Connected to FinLagX DB: {version.split(',')[0]}")
             
             # Check for TimescaleDB extension
             result = conn.execute(text("SELECT extname FROM pg_extension WHERE extname = 'timescaledb';"))
             if result.fetchone():
-                print(f"✅ TimescaleDB extension is installed")
+                print(f"  TimescaleDB extension is installed")
             else:
                 print(f"⚠️ TimescaleDB extension not found")
     except Exception as e:
-        print(f"❌ FinLagX Database Connection Failed: {e}")
+        print(f"  FinLagX Database Connection Failed: {e}")
         raise
     
     # Test MLflow database
@@ -66,7 +66,7 @@ def test_connection():
         mlflow_engine = get_mlflow_engine()
         with mlflow_engine.connect() as conn:
             result = conn.execute(text("SELECT version();"))
-            print(f"✅ Connected to MLflow DB")
+            print(f"  Connected to MLflow DB")
     except Exception as e:
         print(f"⚠️ MLflow Database not ready (will be created by MLflow): {e}")
     
@@ -90,7 +90,7 @@ def check_tables():
         tables = [row[0] for row in result]
         
         if tables:
-            print(f"✅ Found {len(tables)} tables:")
+            print(f"  Found {len(tables)} tables:")
             # Hypertables such as var_features can hold many chunks; counting them
             # requires grabbing locks on every chunk and can exhaust shared memory.
             heavy_tables = {"var_features"}
@@ -128,7 +128,7 @@ def clean_raw_data():
             conn.commit()
             print("🧹 Cleaned raw data tables (market_data, macro_data)")
     except Exception as e:
-        print(f"❌ Error cleaning raw data: {e}")
+        print(f"  Error cleaning raw data: {e}")
 
 def clean_processed_features():
     """Truncate processed feature tables"""
@@ -150,16 +150,16 @@ def clean_processed_features():
                 except Exception as e:
                     print(f"⚠️ Could not clean {table}: {e}")
             conn.commit()
-            print("✅ Cleaned all processed feature tables")
+            print("  Cleaned all processed feature tables")
     except Exception as e:
-        print(f"❌ Error cleaning processed features: {e}")
+        print(f"  Error cleaning processed features: {e}")
 
 def clean_all_data():
     """Clean both raw and processed data"""
     print("\n🧹 Cleaning ALL data from database...")
     clean_raw_data()
     clean_processed_features()
-    print("✅ All data cleaned\n")
+    print("  All data cleaned\n")
 
 def init_feature_store():
     """Initialize feature store tables if they don't exist"""
@@ -168,10 +168,10 @@ def init_feature_store():
     print("\n🏗️ Initializing Feature Store...")
     fs = FeatureStore()
     fs.initialize_feature_store()
-    print("✅ Feature Store ready\n")
+    print("  Feature Store ready\n")
 
 if __name__ == "__main__":
-    print("🚀 FinLagX Database Setup")
+    print("  FinLagX Database Setup")
     
     # Test connection
     test_connection()
@@ -182,4 +182,4 @@ if __name__ == "__main__":
     # Initialize feature store
     init_feature_store()
     
-    print("\n✅ Database setup completed!")
+    print("\n  Database setup completed!")

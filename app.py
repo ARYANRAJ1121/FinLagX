@@ -90,28 +90,15 @@ with st.sidebar:
     """)
     
     st.markdown("---")
-    
-    st.markdown("## ⚙️ Settings")
-    
-    # Theme toggle (cosmetic - Streamlit doesn't support dynamic theme switching)
-    theme = st.selectbox("Theme", ["Light", "Dark"], index=0)
-    
-    # Global filters
-    st.markdown("### 📌 Global Filters")
+   
     
     available_assets = get_available_assets()
     default_asset = available_assets[0] if available_assets else None
     
-    selected_asset = st.selectbox(
-        "Quick Asset Select",
-        options=available_assets,
-        format_func=lambda x: ASSET_DISPLAY_NAMES.get(x, x),
-        index=0 if default_asset else None,
-        key="sidebar_asset"
-    )
+    
     
     # Store in session state for access across pages
-    st.session_state['selected_asset'] = selected_asset
+  
     
     st.markdown("---")
     
@@ -237,7 +224,7 @@ st.markdown("---")
 
 # ==================== QUICK LINKS ====================
 
-st.markdown("## 🚀 Quick Access")
+st.markdown("##   Quick Access")
 
 col1, col2, col3 = st.columns(3)
 

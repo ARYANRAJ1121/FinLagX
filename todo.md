@@ -10,7 +10,7 @@
 
     ---
 
-    ## ✅ Completed Milestones
+    ##   Completed Milestones
 
     -   [x] **Setup & Infrastructure**: Docker environment with TimescaleDB and MongoDB is fully operational.
     -   [x] **Data Ingestion Pipeline**: Automated scripts for market, macro, and news data collection are in place.

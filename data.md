@@ -89,4 +89,4 @@ This document lists the financial assets, macroeconomic indicators, and external
 
 ---
 
-✅ This diverse set of assets + external signals ensures FinLagX can capture **global interdependencies**, **macro effects**, and **sentiment-driven lead-lag dynamics**.
+  This diverse set of assets + external signals ensures FinLagX can capture **global interdependencies**, **macro effects**, and **sentiment-driven lead-lag dynamics**.

@@ -13,10 +13,10 @@ def test_imports():
         from src.data_ingestion.market_data import download_asset_to_db
         from src.data_ingestion.macro_data import download_macro_indicator_to_db
         from src.data_ingestion.news_data import get_mongo_client
-        print("✅ All imports successful!")
+        print("  All imports successful!")
         return True
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"  Import error: {e}")
         return False
 
 def test_database_connection():
@@ -27,7 +27,7 @@ def test_database_connection():
         test_connection()
         return True
     except Exception as e:
-        print(f"❌ Database connection failed: {e}")
+        print(f"  Database connection failed: {e}")
         return False
 
 def test_config_files():
@@ -45,9 +45,9 @@ def test_config_files():
         try:
             with open(config_file, "r") as f:
                 config = yaml.safe_load(f)
-            print(f"✅ {config_file} loaded successfully")
+            print(f"  {config_file} loaded successfully")
         except Exception as e:
-            print(f"❌ {config_file} failed: {e}")
+            print(f"  {config_file} failed: {e}")
             return False
     return True
 
@@ -65,18 +65,18 @@ def test_single_download():
         
         result = download_asset_to_db("AAPL", "APPLE", "TEST", start_date, end_date, engine)
         if result is not None:
-            print(f"✅ Test download successful: {len(result)} rows")
+            print(f"  Test download successful: {len(result)} rows")
             return True
         else:
-            print("❌ Test download returned None")
+            print("  Test download returned None")
             return False
     except Exception as e:
-        print(f"❌ Test download failed: {e}")
+        print(f"  Test download failed: {e}")
         return False
 
 def main():
     """Run all tests"""
-    print("🚀 FinLagX Setup Test\n")
+    print("  FinLagX Setup Test\n")
     
     tests = [
         test_imports,
@@ -95,7 +95,7 @@ def main():
     print(f"\n📊 Test Results: {passed}/{total} tests passed")
     
     if passed == total:
-        print("🎉 All tests passed! FinLagX is ready to run!")
+        print("  All tests passed! FinLagX is ready to run!")
         return True
     else:
         print("⚠️ Some tests failed. Please check the errors above.")

@@ -101,6 +101,6 @@ db.createUser({
    ]
 });
 
-print("✅ FinLagX News Database initialized successfully!");
+print("  FinLagX News Database initialized successfully!");
 print("📊 Created indexes and sample data");
 print("👤 Created application user: finlagx_app");

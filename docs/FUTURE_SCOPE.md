@@ -11,7 +11,7 @@
 
 ## 🔬 Current Achievements (Phase 1)
 
-### ✅ Implemented Components
+###   Implemented Components
 
 1. **Temporal Causality Framework**
    - Vector Autoregression (VAR) modeling
@@ -39,7 +39,7 @@
 
 ---
 
-## 🚀 Proposed Extensions (Phase 2)
+##   Proposed Extensions (Phase 2)
 
 ### 1. Advanced Modeling Architectures
 
@@ -216,15 +216,15 @@
 ## 🗓️ Timeline & Milestones
 
 ### **Semester 1 (Months 1-3)**
-- ✅ Complete Transformer & GNN implementation
-- ✅ Integrate NLP sentiment analysis
-- ✅ Develop ensemble meta-learner
+-   Complete Transformer & GNN implementation
+-   Integrate NLP sentiment analysis
+-   Develop ensemble meta-learner
 - 📊 Deliverable: 20% accuracy improvement
 
 ### **Semester 2 (Months 4-6)**
-- ✅ Build API and real-time pipeline
-- ✅ Deploy on cloud (AWS/GCP)
-- ✅ Complete backtesting framework
+-   Build API and real-time pipeline
+-   Deploy on cloud (AWS/GCP)
+-   Complete backtesting framework
 - 📊 Deliverable: Production-ready system
 
 ### **Ongoing (Months 7+)**

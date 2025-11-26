@@ -30,10 +30,10 @@ def download_macro_indicator_to_db(code: str, name: str, start: str, end: str, e
         df = df[['time', 'indicator', 'value']]
         df = df.dropna()
         df.to_sql('macro_data', engine, if_exists='append', index=False, method='multi')
-        logger.info(f"✅ Saved {len(df)} rows for {name} to database")
+        logger.info(f"  Saved {len(df)} rows for {name} to database")
         return df
     except Exception as e:
-        logger.error(f"❌ Failed {name} ({code}): {e}")
+        logger.error(f"  Failed {name} ({code}): {e}")
         return None
 
 def download_all_macro():
@@ -92,7 +92,7 @@ def get_macro_correlation_data(indicators, start_date, end_date):
     return df.pivot(index='time', columns='indicator', values='value')
 
 if __name__ == "__main__":
-    logger.info("🚀 Starting Macro Data Pipeline with TimescaleDB...\n")
+    logger.info("  Starting Macro Data Pipeline with TimescaleDB...\n")
     download_all_macro()
     logger.info("\n📊 Testing data retrieval...")
     latest = get_latest_macro_values()
@@ -101,4 +101,4 @@ if __name__ == "__main__":
         print(latest)
     cpi_data = get_macro_data(indicator='CPI', start_date='2023-01-01')
     logger.info(f"CPI data points since 2023: {len(cpi_data)}")
-    logger.info("\n✅ Macro data pipeline completed!")
+    logger.info("\n  Macro data pipeline completed!")

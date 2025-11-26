@@ -57,7 +57,7 @@ def get_granger_relationships(fs, symbol):
         relationships = result.fetchall()
     
     if relationships:
-        logger.info(f"   ✅ Found {len(relationships)} significant lead-lag relationships")
+        logger.info(f"     Found {len(relationships)} significant lead-lag relationships")
         for asset_x, asset_y, lag, score, sig in relationships:
             logger.info(f"      • {asset_x} leads {asset_y} by {lag} days (score: {score:.4f})")
     else:
@@ -79,7 +79,7 @@ def prepare_data_with_leadlag(fs, symbol, lookback=20):
     df = pd.read_sql(query, fs.engine, params={'symbol': symbol})
     
     if df.empty:
-        logger.error(f"❌ No data found for {symbol}")
+        logger.error(f"  No data found for {symbol}")
         return None
     
     logger.info(f"   📥 Loaded {len(df)} rows ({df['time'].min()} to {df['time'].max()})")
@@ -132,7 +132,7 @@ def prepare_data_with_leadlag(fs, symbol, lookback=20):
                 'Feature_Name': col_name
             })
             
-            logger.info(f"   ✅ Added feature: {col_name} (Granger score: {score:.4f})")
+            logger.info(f"     Added feature: {col_name} (Granger score: {score:.4f})")
     
     # Drop NaN
     df = df.dropna(subset=feature_cols + ['returns']).reset_index(drop=True)
@@ -161,7 +161,7 @@ def prepare_data_with_leadlag(fs, symbol, lookback=20):
     # Calculate lead-lag indicator
     lead_lag_indicator = np.mean([g['Granger_Score'] for g in granger_info]) if granger_info else 0.0
     
-    logger.info(f"   ✅ Created {len(X)} sequences (shape: {X.shape})")
+    logger.info(f"     Created {len(X)} sequences (shape: {X.shape})")
     logger.info(f"   📊 Features: {feature_cols}")
     logger.info(f"   📍 Lead-lag indicator: {lead_lag_indicator:.4f}")
     
@@ -178,7 +178,7 @@ def prepare_data_with_leadlag(fs, symbol, lookback=20):
 
 def train_and_predict(X_train, y_train, X_test, epochs=100):
     """Train LSTM and make predictions"""
-    logger.info(f"\n🚀 Training LSTM ({epochs} epochs)...")
+    logger.info(f"\n  Training LSTM ({epochs} epochs)...")
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = LSTMModel(X_train.shape[2], hidden_dim=32).to(device)
@@ -216,7 +216,7 @@ def train_and_predict(X_train, y_train, X_test, epochs=100):
         X_test_t = torch.FloatTensor(X_test).to(device)
         predictions = model(X_test_t).cpu().numpy()
     
-    logger.info("✅ Training complete!")
+    logger.info("  Training complete!")
     return predictions
 
 
@@ -279,25 +279,25 @@ def export_to_csv(symbol, data_dict, y_test, predictions, metrics):
         'Lead_Lag_Indicator': data_dict['lead_lag_indicator']
     })
     pred_df.to_csv(pred_file, index=False)
-    logger.info(f"   ✅ Saved predictions to {pred_file}")
+    logger.info(f"     Saved predictions to {pred_file}")
     
     # File 2: Performance Metrics
     metrics_file = os.path.join(data_folder, f'{symbol_lower}_metrics.csv')
     metrics_df = pd.DataFrame([metrics])
     metrics_df.to_csv(metrics_file, index=False)
-    logger.info(f"   ✅ Saved metrics to {metrics_file}")
+    logger.info(f"     Saved metrics to {metrics_file}")
     
     # File 3: Lead-Lag Relationships (Granger)
     if data_dict['granger_info']:
         granger_file = os.path.join(data_folder, f'{symbol_lower}_leadlag_relationships.csv')
         granger_df = pd.DataFrame(data_dict['granger_info'])
         granger_df.to_csv(granger_file, index=False)
-        logger.info(f"   ✅ Saved relationships to {granger_file}")
+        logger.info(f"     Saved relationships to {granger_file}")
     
     # File 4: Raw Market Data
     raw_file = os.path.join(data_folder, f'{symbol_lower}_raw_data.csv')
     data_dict['raw_data'].to_csv(raw_file, index=False)
-    logger.info(f"   ✅ Saved raw data to {raw_file}")
+    logger.info(f"     Saved raw data to {raw_file}")
     
     # File 5: Feature Information
     feature_file = os.path.join(data_folder, f'{symbol_lower}_features.csv')
@@ -307,7 +307,7 @@ def export_to_csv(symbol, data_dict, y_test, predictions, metrics):
                        else 'Lead-Lag' for f in data_dict['feature_cols']]
     })
     feature_info.to_csv(feature_file, index=False)
-    logger.info(f"   ✅ Saved features to {feature_file}")
+    logger.info(f"     Saved features to {feature_file}")
     
     # File 6: Summary
     summary_file = os.path.join(data_folder, f'{symbol_lower}_summary.csv')
@@ -338,9 +338,9 @@ def export_to_csv(symbol, data_dict, y_test, predictions, metrics):
         ]
     })
     summary_df.to_csv(summary_file, index=False)
-    logger.info(f"   ✅ Saved summary to {summary_file}")
+    logger.info(f"     Saved summary to {summary_file}")
     
-    logger.info(f"\n✅ All CSV files exported for {symbol}")
+    logger.info(f"\n  All CSV files exported for {symbol}")
     return pred_file
 
 
@@ -358,10 +358,10 @@ def main():
     symbols = get_available_symbols(fs)
     
     if not symbols:
-        logger.error("❌ No symbols found in market_features table!")
+        logger.error("  No symbols found in market_features table!")
         return
     
-    logger.info(f"✅ Found {len(symbols)} symbols: {symbols}")
+    logger.info(f"  Found {len(symbols)} symbols: {symbols}")
     
     # Process each symbol
     for symbol in symbols:
@@ -394,16 +394,16 @@ def main():
             # Export to CSV
             filename = export_to_csv(symbol, data_dict, y_test, predictions, metrics)
             
-            logger.info(f"\n✅ Completed {symbol}! Results saved to {filename}\n")
+            logger.info(f"\n  Completed {symbol}! Results saved to {filename}\n")
             
         except Exception as e:
-            logger.error(f"❌ Error processing {symbol}: {e}")
+            logger.error(f"  Error processing {symbol}: {e}")
             import traceback
             traceback.print_exc()
             continue
     
     logger.info("\n" + "="*70)
-    logger.info("✅ ALL DONE! Check the Excel files for results")
+    logger.info("  ALL DONE! Check the Excel files for results")
     logger.info("="*70 + "\n")
 
 

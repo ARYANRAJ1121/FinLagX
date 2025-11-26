@@ -14,7 +14,7 @@ Today's session focused on implementing the final feature engineering pipeline u
 
 ## 🤖 **Task 1: FinBERT Sentiment Analysis Pipeline**
 
-- **Status:** ✅ **Completed**
+- **Status:**   **Completed**
 - **Details:**
   - Successfully implemented a new pipeline at `src/preprocessing/generate_sentiment.py`.
   - This script automates the process of fetching news articles from the MongoDB database.
@@ -25,7 +25,7 @@ Today's session focused on implementing the final feature engineering pipeline u
 
 ## ⚙️ **Task 2: Environment Setup & Troubleshooting**
 
-- **Status:** ✅ **Completed**
+- **Status:**   **Completed**
 - **Details:**
   - **Conda Environment:** Created and configured a new, dedicated conda environment (`finlagx_env`) to resolve a critical `segmentation fault` caused by underlying library conflicts in the base environment.
   - **Docker Infrastructure:** Successfully installed and configured Docker Desktop on macOS. This resolved the `command not found` errors and allowed for the successful launch of the project's backend services (TimescaleDB, MongoDB, etc.).

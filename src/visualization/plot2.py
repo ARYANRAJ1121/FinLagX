@@ -98,7 +98,7 @@ def plot_clean_network():
     
     output_file = "clean_force_network.png"
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    logger.info(f"✅ Saved graph to {output_file}")
+    logger.info(f"  Saved graph to {output_file}")
     plt.show()
 
 if __name__ == "__main__":

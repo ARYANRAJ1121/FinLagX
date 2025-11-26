@@ -76,7 +76,7 @@ class NewsDataPreprocessor:
         df = pd.DataFrame(articles)
         
         if not df.empty:
-            logger.info(f"✅ Fetched {len(df)} articles")
+            logger.info(f"  Fetched {len(df)} articles")
         else:
             logger.warning("⚠️ No news data found")
         
@@ -159,7 +159,7 @@ class NewsDataPreprocessor:
             )
         
         cleaned_rows = len(df)
-        logger.info(f"✅ Cleaned: {original_rows} → {cleaned_rows} articles")
+        logger.info(f"  Cleaned: {original_rows} → {cleaned_rows} articles")
         
         return df
     
@@ -208,7 +208,7 @@ class NewsDataPreprocessor:
         df['combined_text'] = df['title_clean'].fillna('') + ' ' + df['summary_clean'].fillna('')
         df['keywords'] = df['combined_text'].apply(get_keywords)
         
-        logger.info("✅ Keywords extracted")
+        logger.info("  Keywords extracted")
         
         return df
     
@@ -239,7 +239,7 @@ class NewsDataPreprocessor:
         # Filter out very short articles (less than 20 characters)
         sentiment_df = sentiment_df[sentiment_df['text_for_sentiment'].str.len() >= 20]
         
-        logger.info(f"✅ Prepared {len(sentiment_df)} articles for sentiment analysis")
+        logger.info(f"  Prepared {len(sentiment_df)} articles for sentiment analysis")
         
         return sentiment_df
     
@@ -264,12 +264,12 @@ class NewsDataPreprocessor:
             # Insert into MongoDB
             if records:
                 self.db[collection_name].insert_many(records)
-                logger.info(f"✅ Saved {len(records)} articles to {collection_name}")
+                logger.info(f"  Saved {len(records)} articles to {collection_name}")
             else:
                 logger.warning("⚠️ No records to save")
                 
         except Exception as e:
-            logger.error(f"❌ Error saving to MongoDB: {e}")
+            logger.error(f"  Error saving to MongoDB: {e}")
             raise
     
     def run_full_preprocessing(self, categories=None, start_date=None, end_date=None, 
@@ -287,7 +287,7 @@ class NewsDataPreprocessor:
         Returns:
             Processed DataFrame
         """
-        logger.info("🚀 Starting news preprocessing pipeline...\n")
+        logger.info("  Starting news preprocessing pipeline...\n")
         
         # 1. Fetch data
         df = self.get_news_data(categories, start_date, end_date)
@@ -309,7 +309,7 @@ class NewsDataPreprocessor:
         if save:
             self.save_to_mongodb(df, collection_name)
         
-        logger.info("\n✅ News preprocessing completed!")
+        logger.info("\n  News preprocessing completed!")
         logger.info(f"   Final articles: {len(df)}")
         logger.info(f"   Categories: {df['category'].unique().tolist()}")
         logger.info(f"   Date range: {df['timestamp'].min()} to {df['timestamp'].max()}")

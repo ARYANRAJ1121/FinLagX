@@ -48,7 +48,7 @@ class MarketDataPreprocessor:
         
         logger.info(f"Fetching market data...")
         df = pd.read_sql(query, self.engine, params=params)
-        logger.info(f"✅ Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
+        logger.info(f"  Fetched {len(df)} rows for {df['symbol'].nunique()} symbols")
         
         return df
     
@@ -77,7 +77,7 @@ class MarketDataPreprocessor:
         
         df = df.drop('price_change', axis=1)
         
-        logger.info(f"✅ Cleaned: {original_rows} → {len(df)} rows")
+        logger.info(f"  Cleaned: {original_rows} → {len(df)} rows")
         
         return df
     
@@ -92,7 +92,7 @@ class MarketDataPreprocessor:
         df['return_5d'] = grouped.transform(lambda x: np.log(x / x.shift(5)))
         df['return_10d'] = grouped.transform(lambda x: np.log(x / x.shift(10)))
         
-        logger.info("✅ Returns calculated")
+        logger.info("  Returns calculated")
         
         return df
     
@@ -125,7 +125,7 @@ class MarketDataPreprocessor:
         # Volume change (interest/activity indicator)
         df['volume_change'] = df.groupby('symbol')['volume'].pct_change()
         
-        logger.info("✅ Essential features calculated")
+        logger.info("  Essential features calculated")
         
         return df
     
@@ -147,16 +147,16 @@ class MarketDataPreprocessor:
                 """))
                 conn.commit()
             
-            logger.info(f"✅ Saved {len(df)} rows to {table_name}")
+            logger.info(f"  Saved {len(df)} rows to {table_name}")
             
         except Exception as e:
-            logger.error(f"❌ Error saving to database: {e}")
+            logger.error(f"  Error saving to database: {e}")
             raise
     
     def run_full_preprocessing(self, symbols=None, start_date=None, end_date=None, 
                                save=True, table_name='market_data_processed'):
         """Run lean preprocessing pipeline"""
-        logger.info("🚀 Starting LEAN market data preprocessing...\n")
+        logger.info("  Starting LEAN market data preprocessing...\n")
         
         df = self.get_market_data(symbols, start_date, end_date)
         df = self.clean_data(df)
@@ -169,7 +169,7 @@ class MarketDataPreprocessor:
         if save:
             self.save_to_database(df, table_name)
         
-        logger.info("\n✅ Market data preprocessing completed!")
+        logger.info("\n  Market data preprocessing completed!")
         logger.info(f"   Final shape: {df.shape}")
         logger.info(f"   Features: {df.columns.tolist()}")
         logger.info(f"   Memory usage: {df.memory_usage(deep=True).sum() / 1024**2:.2f} MB")

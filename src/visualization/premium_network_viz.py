@@ -225,12 +225,12 @@ def create_interactive_network(top_n=60):
     output_path = "data/interactive_network.html"
     os.makedirs("data", exist_ok=True)
     fig.write_html(output_path)
-    logger.info(f"✅ Saved interactive network to {output_path}")
+    logger.info(f"  Saved interactive network to {output_path}")
     
     # Also save as static image
     try:
         fig.write_image("data/premium_network.png", width=1920, height=1080, scale=2)
-        logger.info(f"✅ Saved static image to data/premium_network.png")
+        logger.info(f"  Saved static image to data/premium_network.png")
     except:
         logger.warning("   ⚠️ Could not save static image (install kaleido: pip install kaleido)")
     
@@ -334,7 +334,7 @@ def create_hierarchy_sunburst():
     
     output_path = "data/leadership_sunburst.html"
     fig.write_html(output_path)
-    logger.info(f"✅ Saved sunburst to {output_path}")
+    logger.info(f"  Saved sunburst to {output_path}")
     
     return fig
 
@@ -459,7 +459,7 @@ def create_dashboard():
     
     output_path = "data/analytics_dashboard.html"
     fig.write_html(output_path)
-    logger.info(f"✅ Saved dashboard to {output_path}")
+    logger.info(f"  Saved dashboard to {output_path}")
     
     return fig
 
@@ -476,7 +476,7 @@ def main():
     create_dashboard()
     
     logger.info("\n" + "="*70)
-    logger.info("✅ ALL PREMIUM VISUALIZATIONS COMPLETE!")
+    logger.info("  ALL PREMIUM VISUALIZATIONS COMPLETE!")
     logger.info("="*70)
     logger.info("\n📂 Check the 'data' folder for:")
     logger.info("   • interactive_network.html - Stunning interactive network")

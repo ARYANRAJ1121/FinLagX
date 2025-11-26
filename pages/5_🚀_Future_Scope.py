@@ -10,7 +10,7 @@ from pathlib import Path
 
 st.set_page_config(
     page_title="Future Scope - FinLagX",
-    page_icon="🚀",
+    page_icon=" ",
     layout="wide"
 )
 
@@ -56,7 +56,7 @@ st.markdown("""
 
 # ==================== HEADER ====================
 
-st.markdown("<h1 class='future-header'>🚀 Future Scope & Research Roadmap</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='future-header'>  Future Scope & Research Roadmap</h1>", unsafe_allow_html=True)
 
 st.markdown("""
 **FinLagX** is positioned to evolve into a **world-class systemic risk intelligence platform**. 
@@ -83,13 +83,13 @@ with col1:
     """)
 
 with col2:
-    st.markdown("<div class='phase-card'><h3>✅ Phase 1 Complete</h3><p>Foundation established with 15+ assets, 60%+ accuracy, and interactive visualization</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='phase-card'><h3>  Phase 1 Complete</h3><p>Foundation established with 15+ assets, 60%+ accuracy, and interactive visualization</p></div>", unsafe_allow_html=True)
 
 st.markdown("---")
 
 # ==================== CURRENT ACHIEVEMENTS ====================
 
-st.markdown("## ✅ Current Achievements (Phase 1)")
+st.markdown("##   Current Achievements (Phase 1)")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -97,7 +97,7 @@ with col1:
     st.markdown("<div class='impact-metric'><h2>15+</h2><p>Global Assets</p></div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='impact-metric'><h2>60%+</h2><p>Directional Accuracy</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='impact-metric'><h2>53%+</h2><p>Directional Accuracy</p></div>", unsafe_allow_html=True)
 
 with col3:
     st.markdown("<div class='impact-metric'><h2>4</h2><p>ML Models Deployed</p></div>", unsafe_allow_html=True)
@@ -143,7 +143,7 @@ st.markdown("---")
 
 # ==================== PROPOSED EXTENSIONS ====================
 
-st.markdown("## 🚀 Proposed Extensions (Phase 2)")
+st.markdown("##   Proposed Extensions (Phase 2)")
 
 tabs = st.tabs([
     "🧠 Advanced Models",
@@ -388,7 +388,7 @@ for period, data in timeline_data.items():
     with st.expander(f"📅 {period}", expanded=True):
         st.markdown(f"**Tasks:**")
         for task in data['tasks']:
-            st.markdown(f"- ✅ {task}")
+            st.markdown(f"-   {task}")
         st.success(f"**Deliverable:** {data['deliverable']}")
 
 st.markdown("---")
@@ -437,7 +437,7 @@ st.markdown("---")
 
 # ==================== CONCLUSION ====================
 
-st.markdown("## ✅ Conclusion & Call to Action")
+st.markdown("##   Conclusion & Call to Action")
 
 st.markdown("""
 FinLagX has demonstrated **technical feasibility** and **academic merit** in Phase 1. 
@@ -456,7 +456,7 @@ with col2:
     st.success("🤝 **Industry adoption and partnerships**")
 
 with col3:
-    st.success("🚀 **Potential startup formation**")
+    st.success("  **Potential startup formation**")
 
 with col4:
     st.success("🌐 **Contribution to open-source**")

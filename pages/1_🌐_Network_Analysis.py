@@ -45,9 +45,6 @@ with col1:
 with col2:
     theme_mode = st.selectbox("Network Theme", ["Dark", "Light"], index=0)
 
-with col3:
-    top_n = st.slider("Top N Relationships", min_value=10, max_value=100, value=50, step=10)
-
 st.markdown("---")
 
 # ==================== NETWORK VISUALIZATION ====================
@@ -61,7 +58,7 @@ with col1:
     network_path = Path("data") / network_file
     
     if network_path.exists():
-        st.image(str(network_path), caption=f"Granger Causality Network - Top {top_n} Relationships")
+        st.image(str(network_path), caption=f"Granger Causality Network - Top  Relationships")
     else:
         st.error(f"""
         **Network visualization not found!**

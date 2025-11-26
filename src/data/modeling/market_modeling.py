@@ -20,13 +20,13 @@ def load_processed_data(file_path):
     """
     try:
         df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
-        print(f"✅ Loaded processed data from {file_path}")
+        print(f"  Loaded processed data from {file_path}")
         return df
     except FileNotFoundError:
-        print(f"❌ Error: Processed data file not found at {file_path}")
+        print(f"  Error: Processed data file not found at {file_path}")
         return None
     except Exception as e:
-        print(f"❌ An error occurred while loading data: {e}")
+        print(f"  An error occurred while loading data: {e}")
         return None
 
 # 1. Traditional Models (statsmodels)
@@ -87,7 +87,7 @@ def run_deep_learning_models(df):
     #         self.linear = torch.nn.Linear(hidden_dim, output_dim)
     # ... and so on ...
     
-    print("✅ Deep learning model framework set up. You can add your custom code here.")
+    print("  Deep learning model framework set up. You can add your custom code here.")
 
 
 # 3. Sentiment Analysis (Hugging Face)
@@ -127,7 +127,7 @@ def main():
     
     run_sentiment_analysis()
     
-    print("\n✅ All modeling tasks completed.")
+    print("\n  All modeling tasks completed.")
 
 if __name__ == "__main__":
     main()

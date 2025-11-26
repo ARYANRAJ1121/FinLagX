@@ -123,11 +123,11 @@ def download_asset_to_db(ticker: str, name: str, category: str, start: str, end:
             
             conn.commit()
         
-        logger.info(f"✅ Processed {inserted_count} rows for {name}")
+        logger.info(f"  Processed {inserted_count} rows for {name}")
         return df
         
     except Exception as e:
-        logger.error(f"❌ Failed {name} ({ticker}): {e}")
+        logger.error(f"  Failed {name} ({ticker}): {e}")
         import traceback
         traceback.print_exc()
         return None
@@ -182,7 +182,7 @@ def get_price_data_range(symbol, start_date, end_date):
     })
 
 if __name__ == "__main__":
-    logger.info("🚀 Starting Market Data Pipeline...\n")
+    logger.info("  Starting Market Data Pipeline...\n")
     download_all_assets()
     
     logger.info("\n📊 Testing data retrieval...")
@@ -198,4 +198,4 @@ if __name__ == "__main__":
     else:
         logger.warning("⚠️ No data retrieved from database!")
     
-    logger.info("\n✅ Market data pipeline completed!")
+    logger.info("\n  Market data pipeline completed!")

@@ -39,7 +39,7 @@ def run_data_ingestion(clean_first=False):
         
         return True
     except Exception as e:
-        logger.error(f"❌ Data ingestion failed: {e}")
+        logger.error(f"  Data ingestion failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -57,10 +57,10 @@ def run_market_preprocessing():
         df = preprocessor.run_full_preprocessing(save=False)
         
         if df.empty:
-            logger.error("❌ No data after preprocessing")
+            logger.error("  No data after preprocessing")
             return False
         
-        logger.info(f"✅ Market preprocessing completed: {df.shape}")
+        logger.info(f"  Market preprocessing completed: {df.shape}")
         
         # Save to feature store
         logger.info("\n💾 Saving to Feature Store...")
@@ -70,7 +70,7 @@ def run_market_preprocessing():
         
         return True
     except Exception as e:
-        logger.error(f"❌ Market preprocessing failed: {e}")
+        logger.error(f"  Market preprocessing failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -88,7 +88,7 @@ def run_statistical_modeling():
         logger.info("   → VAR Model")
         return True
     except Exception as e:
-        logger.error(f"❌ Statistical modeling failed: {e}")
+        logger.error(f"  Statistical modeling failed: {e}")
         return False
 
 def verify_feature_store():
@@ -110,7 +110,7 @@ def verify_feature_store():
             logger.warning("⚠️ No features in feature store yet")
             return False
         
-        logger.info(f"✅ Feature store contains {len(features)} feature rows")
+        logger.info(f"  Feature store contains {len(features)} feature rows")
         logger.info(f"   Symbols: {features['symbol'].nunique()}")
         logger.info(f"   Date range: {features['time'].min()} to {features['time'].max()}")
         
@@ -119,7 +119,7 @@ def verify_feature_store():
         
         return True
     except Exception as e:
-        logger.error(f"❌ Feature store verification failed: {e}")
+        logger.error(f"  Feature store verification failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -132,9 +132,9 @@ def run_complete_pipeline(skip_ingestion=False, clean_first=False):
         skip_ingestion: Skip data ingestion step (use existing data)
         clean_first: Clean database before ingesting new data
     """
-    logger.info("\n" + "🚀 "*20)
+    logger.info("\n" + "  "*20)
     logger.info("FINLAGX COMPLETE PIPELINE")
-    logger.info("🚀 "*20 + "\n")
+    logger.info("  "*20 + "\n")
     
     start_time = datetime.now()
     
@@ -160,7 +160,7 @@ def run_complete_pipeline(skip_ingestion=False, clean_first=False):
         results[step_name] = success
         
         if not success and step_name != "Statistical Modeling Setup":
-            logger.error(f"❌ Pipeline failed at: {step_name}")
+            logger.error(f"  Pipeline failed at: {step_name}")
             return False
     
     # Summary
@@ -171,22 +171,22 @@ def run_complete_pipeline(skip_ingestion=False, clean_first=False):
     logger.info("="*80)
     
     for step_name, success in results.items():
-        status = "✅ SUCCESS" if success else "❌ FAILED"
+        status = "  SUCCESS" if success else "  FAILED"
         logger.info(f"   {step_name}: {status}")
     
-    logger.info(f"\n⏱️ Total Duration: {duration}")
+    logger.info(f"\n  Total Duration: {duration}")
     logger.info("="*80)
     
     if all(results.values()):
-        logger.info("\n🎉 Complete pipeline finished successfully!")
-        logger.info("\n📋 Next Steps:")
+        logger.info("\n  Complete pipeline finished successfully!")
+        logger.info("\n  Next Steps:")
         logger.info("   1. Run Granger Causality: python -m src.modeling.granger_causality")
         logger.info("   2. Run VAR Model: python -m src.modeling.var_model")
         logger.info("   3. Run Deep Learning: python -m src.modeling.lstm_model")
         logger.info("   4. View MLflow UI: http://localhost:5000")
         return True
     else:
-        logger.error("\n❌ Pipeline completed with errors")
+        logger.error("\n  Pipeline completed with errors")
         return False
 
 def run_individual_step(step):
@@ -198,11 +198,11 @@ def run_individual_step(step):
     }
     
     if step not in steps:
-        logger.error(f"❌ Unknown step: {step}")
+        logger.error(f"  Unknown step: {step}")
         logger.info(f"Available steps: {list(steps.keys())}")
         return False
     
-    logger.info(f"\n🚀 Running step: {step}")
+    logger.info(f"\n  Running step: {step}")
     return steps[step]()
 
 def main():

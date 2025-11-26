@@ -53,9 +53,8 @@ CATEGORY_COLORS = {
 
 # ==================== DATA LOADING ====================
 
-@st.cache_data(ttl=300)
 def get_database_engine():
-    """Get database engine with caching"""
+    """Get database engine without caching (engines can't be pickled)"""
     return get_engine()
 
 
@@ -72,6 +71,7 @@ def load_granger_results_from_db():
         ORDER BY granger_score DESC
         """
         df = pd.read_sql(query, engine)
+        engine.dispose()  # Clean up connection
         return df
     except Exception as e:
         st.error(f"Error loading Granger results: {e}")
@@ -82,25 +82,32 @@ def load_granger_results_from_db():
 def load_market_features_from_db(symbols=None, start_date=None, end_date=None):
     """Load market features from database"""
     try:
+        from sqlalchemy import text
         engine = get_database_engine()
-        query = "SELECT * FROM market_features WHERE 1=1"
+        
+        # Build query with proper parameter binding
+        conditions = ["1=1"]
         params = {}
         
         if symbols:
-            query += " AND symbol = ANY(:symbols)"
-            params['symbols'] = symbols
+            # For PostgreSQL arrays, use IN clause instead of ANY
+            placeholders = ','.join([f':symbol_{i}' for i in range(len(symbols))])
+            conditions.append(f"symbol IN ({placeholders})")
+            for i, symbol in enumerate(symbols):
+                params[f'symbol_{i}'] = symbol
         
         if start_date:
-            query += " AND time >= :start_date"
+            conditions.append("time >= :start_date")
             params['start_date'] = start_date
         
         if end_date:
-            query += " AND time <= :end_date"
+            conditions.append("time <= :end_date")
             params['end_date'] = end_date
         
-        query += " ORDER BY symbol, time"
+        query = f"SELECT * FROM market_features WHERE {' AND '.join(conditions)} ORDER BY symbol, time"
         
-        df = pd.read_sql(query, engine, params=params)
+        df = pd.read_sql(text(query), engine, params=params)
+        engine.dispose()  # Clean up connection
         return df
     except Exception as e:
         st.error(f"Error loading market features: {e}")

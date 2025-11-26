@@ -40,7 +40,7 @@ def verify_data_exists():
             count = result.fetchone()[0]
             
             if count == 0:
-                logger.error("❌ market_features table is empty!")
+                logger.error("  market_features table is empty!")
                 logger.info("   Run preprocessing first:")
                 logger.info("   python run_complete_pipeline.py")
                 return False
@@ -55,7 +55,7 @@ def verify_data_exists():
             """))
             
             row = result.fetchone()
-            logger.info(f"✅ Data available:")
+            logger.info(f"  Data available:")
             logger.info(f"   Rows: {count:,}")
             logger.info(f"   Symbols: {row[2]}")
             logger.info(f"   Date range: {row[0]} to {row[1]}")
@@ -63,7 +63,7 @@ def verify_data_exists():
             return True
             
     except Exception as e:
-        logger.error(f"❌ Error checking data: {e}")
+        logger.error(f"  Error checking data: {e}")
         return False
 
 
@@ -77,10 +77,10 @@ def run_granger_analysis(symbols=None, start_date='2015-01-01', end_date=None, f
         end_date: End date
         feature: Feature to analyze ('returns', 'return_5d', 'volatility_20')
     """
-    logger.info("\n" + "🚀 "*20)
+    logger.info("\n" + "  "*20)
     logger.info("STEP 1: GRANGER CAUSALITY ANALYSIS")
     logger.info(f"Feature: {feature} | From: {start_date}")
-    logger.info("🚀 "*20 + "\n")
+    logger.info("  "*20 + "\n")
     
     try:
         analyzer = GrangerCausalityAnalyzer(
@@ -98,14 +98,14 @@ def run_granger_analysis(symbols=None, start_date='2015-01-01', end_date=None, f
         )
         
         if results is not None and not results.empty:
-            logger.info("✅ Granger analysis completed")
+            logger.info("  Granger analysis completed")
             return True
         else:
-            logger.error("❌ Granger analysis failed")
+            logger.error("  Granger analysis failed")
             return False
             
     except Exception as e:
-        logger.error(f"❌ Granger analysis error: {e}")
+        logger.error(f"  Granger analysis error: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -115,9 +115,9 @@ def run_var_analysis(symbols=None, start_date=None, end_date=None):
     """
     Run VAR Model Analysis
     """
-    logger.info("\n" + "🚀 "*20)
+    logger.info("\n" + "  "*20)
     logger.info("STEP 2: VAR MODEL ANALYSIS")
-    logger.info("🚀 "*20 + "\n")
+    logger.info("  "*20 + "\n")
     
     try:
         analyzer = VARAnalyzer(max_lags=10)
@@ -131,14 +131,14 @@ def run_var_analysis(symbols=None, start_date=None, end_date=None):
         )
         
         if results is not None and not results.empty:
-            logger.info("✅ VAR analysis completed")
+            logger.info("  VAR analysis completed")
             return True
         else:
-            logger.error("❌ VAR analysis failed")
+            logger.error("  VAR analysis failed")
             return False
             
     except Exception as e:
-        logger.error(f"❌ VAR analysis error: {e}")
+        logger.error(f"  VAR analysis error: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -165,7 +165,7 @@ def verify_results():
             result = conn.execute(text("SELECT COUNT(*) FROM var_features"))
             var_count = result.fetchone()[0]
             
-            logger.info(f"✅ Results verification:")
+            logger.info(f"  Results verification:")
             logger.info(f"   granger_results: {granger_count:,} rows")
             logger.info(f"   var_features: {var_count:,} rows")
             
@@ -176,7 +176,7 @@ def verify_results():
                 return False
                 
     except Exception as e:
-        logger.error(f"❌ Error verifying results: {e}")
+        logger.error(f"  Error verifying results: {e}")
         return False
 
 
@@ -185,7 +185,7 @@ def show_next_steps():
     Show what to do next
     """
     logger.info("\n" + "="*80)
-    logger.info("📋 NEXT STEPS")
+    logger.info("  NEXT STEPS")
     logger.info("="*80)
     logger.info("\n1. View results in database:")
     logger.info("   • Granger results: SELECT * FROM granger_results ORDER BY granger_score DESC;")
@@ -248,7 +248,7 @@ def main():
     
     # Step 1: Verify data
     if not verify_data_exists():
-        logger.error("❌ Cannot proceed without data. Exiting.")
+        logger.error("  Cannot proceed without data. Exiting.")
         sys.exit(1)
     
     # Step 2: Show tables
@@ -284,18 +284,18 @@ def main():
     logger.info("="*80)
     
     for model, success in results.items():
-        status = "✅ SUCCESS" if success else "❌ FAILED"
+        status = "  SUCCESS" if success else "  FAILED"
         logger.info(f"   {model.upper()}: {status}")
     
-    logger.info(f"\n⏱️ Total Duration: {duration}")
+    logger.info(f"\n  Total Duration: {duration}")
     logger.info("="*80)
     
     if all(results.values()):
-        logger.info("\n🎉 Statistical modeling completed successfully!")
+        logger.info("\n  Statistical modeling completed successfully!")
         show_next_steps()
         return True
     else:
-        logger.error("\n❌ Pipeline completed with errors")
+        logger.error("\n  Pipeline completed with errors")
         return False
 
 

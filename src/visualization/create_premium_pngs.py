@@ -252,7 +252,7 @@ def create_premium_network_dark(top_n=50):
     output_path = 'data/network_dark_premium.png'
     os.makedirs('data', exist_ok=True)
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor=DARK_BG)
-    logger.info(f"✅ Saved to {output_path}")
+    logger.info(f"  Saved to {output_path}")
     plt.close()
 
 
@@ -434,7 +434,7 @@ def create_premium_network_light(top_n=50):
     
     output_path = 'data/network_light_premium.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor=LIGHT_BG)
-    logger.info(f"✅ Saved to {output_path}")
+    logger.info(f"  Saved to {output_path}")
     plt.close()
 
 
@@ -546,7 +546,7 @@ def create_top_leaders_chart():
     
     output_path = 'data/top_leaders.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor=DARK_BG)
-    logger.info(f"✅ Saved to {output_path}")
+    logger.info(f"  Saved to {output_path}")
     plt.close()
 
 
@@ -561,7 +561,7 @@ def main():
     create_top_leaders_chart()
     
     logger.info("\n" + "="*70)
-    logger.info("✅ ALL PNG VISUALIZATIONS COMPLETE!")
+    logger.info("  ALL PNG VISUALIZATIONS COMPLETE!")
     logger.info("="*70)
     logger.info("\n📂 Saved to 'data/' folder:")
     logger.info("   • network_dark_premium.png - Dark mode network (perfect for dashboards)")

@@ -158,11 +158,11 @@ def save_articles_to_mongo(articles, collection):
                 )
                 updated_count += 1
 
-        logger.info(f"✅ Saved {saved_count} new articles, updated {updated_count} existing")
+        logger.info(f"  Saved {saved_count} new articles, updated {updated_count} existing")
         return saved_count
 
     except Exception as e:
-        logger.error(f"❌ Error saving articles to MongoDB: {e}")
+        logger.error(f"  Error saving articles to MongoDB: {e}")
         return 0
 
 def download_all_news():
@@ -186,9 +186,9 @@ def download_all_news():
                 saved = save_articles_to_mongo(articles, collection)
                 total_saved += saved
             except Exception as e:
-                logger.error(f"❌ Error processing {feed['name']}: {e}")
+                logger.error(f"  Error processing {feed['name']}: {e}")
 
-    logger.info(f"\n✅ News pipeline finished. Total new articles: {total_saved}")
+    logger.info(f"\n  News pipeline finished. Total new articles: {total_saved}")
 
 def get_news_data(category=None, start_date=None, end_date=None, limit=100):
     """Query news data from MongoDB"""
@@ -300,19 +300,19 @@ def clean_news_collection():
         collection.drop()
         print("🧹 Cleaned all news data from MongoDB.")
     except Exception as e:
-        print(f"❌ Error cleaning MongoDB collection: {e}")
+        print(f"  Error cleaning MongoDB collection: {e}")
 
 
 if __name__ == "__main__":
-    logger.info("🚀 Starting News Data Pipeline with MongoDB...\n")
+    logger.info("  Starting News Data Pipeline with MongoDB...\n")
 
     # Test MongoDB connection
     try:
         client = get_mongo_client()
-        logger.info(f"✅ Connected to MongoDB: {client.server_info()['version']}")
+        logger.info(f"  Connected to MongoDB: {client.server_info()['version']}")
         client.close()
     except Exception as e:
-        logger.error(f"❌ MongoDB connection failed: {e}")
+        logger.error(f"  MongoDB connection failed: {e}")
         exit(1)
 
     # Download all news
@@ -337,4 +337,4 @@ if __name__ == "__main__":
         market_news = search_news_by_keywords(['market', 'stock', 'trading'], limit=3)
         logger.info(f"\nMarket-related news: {len(market_news)} articles")
 
-    logger.info("\n✅ News data pipeline completed!")
+    logger.info("\n  News data pipeline completed!")

@@ -112,7 +112,7 @@ class FeatureStore:
             
             conn.commit()
         
-        logger.info("✅ Feature Store initialized!")
+        logger.info("  Feature Store initialized!")
     
     # ==================== BASE FEATURES ====================
     
@@ -142,7 +142,7 @@ class FeatureStore:
             
             feature_cols = available_cols + news_cols
             if not feature_cols:
-                logger.error("❌ No usable columns found for market_features insert")
+                logger.error("  No usable columns found for market_features insert")
                 return
             
             features_df = df[feature_cols].copy()
@@ -173,10 +173,10 @@ class FeatureStore:
                 
                 conn.commit()
             
-            logger.info(f"✅ Saved {len(features_df)} base feature rows")
+            logger.info(f"  Saved {len(features_df)} base feature rows")
             
         except Exception as e:
-            logger.error(f"❌ Error saving base features: {e}")
+            logger.error(f"  Error saving base features: {e}")
             raise
     
     def get_base_features(self, symbols=None, start_date=None, end_date=None):
@@ -232,10 +232,10 @@ class FeatureStore:
                 
                 conn.commit()
             
-            logger.info(f"✅ Saved {len(results_df)} Granger results")
+            logger.info(f"  Saved {len(results_df)} Granger results")
             
         except Exception as e:
-            logger.error(f"❌ Error saving Granger results: {e}")
+            logger.error(f"  Error saving Granger results: {e}")
             raise
     
     def get_granger_results(self, asset_x=None, asset_y=None, date=None, significant_only=True):
@@ -302,10 +302,10 @@ class FeatureStore:
                 
                 conn.commit()
             
-            logger.info(f"✅ Saved {len(df)} VAR feature rows")
+            logger.info(f"  Saved {len(df)} VAR feature rows")
             
         except Exception as e:
-            logger.error(f"❌ Error saving VAR features: {e}")
+            logger.error(f"  Error saving VAR features: {e}")
             raise
     
     # ==================== LSTM PREDICTIONS ====================
@@ -340,10 +340,10 @@ class FeatureStore:
                 
                 conn.commit()
             
-            logger.info(f"✅ Saved {len(df)} LSTM predictions")
+            logger.info(f"  Saved {len(df)} LSTM predictions")
             
         except Exception as e:
-            logger.error(f"❌ Error saving LSTM predictions: {e}")
+            logger.error(f"  Error saving LSTM predictions: {e}")
             raise
     
     # ==================== COMBINED FEATURE RETRIEVAL ====================
@@ -361,7 +361,7 @@ class FeatureStore:
         features = self.get_base_features(symbols, start_date, end_date)
         
         if features.empty:
-            logger.error("❌ No base features found")
+            logger.error("  No base features found")
             return pd.DataFrame()
         
         # Add Granger scores
@@ -408,7 +408,7 @@ class FeatureStore:
                 features = features.merge(lstm_df, on=['time', 'symbol'], how='left')
                 logger.info("   Added LSTM predictions")
         
-        logger.info(f"✅ Training dataset ready: {features.shape}")
+        logger.info(f"  Training dataset ready: {features.shape}")
         
         return features
     
@@ -435,7 +435,7 @@ if __name__ == "__main__":
     fs = FeatureStore()
     fs.initialize_feature_store()
     
-    logger.info("\n✅ Feature Store ready!")
+    logger.info("\n  Feature Store ready!")
     logger.info("📊 Available tables:")
     logger.info("   • market_features - Base features")
     logger.info("   • granger_results - Causality scores")
