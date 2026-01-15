@@ -72,7 +72,7 @@ class MarketDataPreprocessor:
         outliers = (df['price_change'].abs() > 0.5) & (df['price_change'].notna())
         
         if outliers.sum() > 0:
-            logger.warning(f"⚠️ Removing {outliers.sum()} outlier rows")
+            logger.warning(f"  Removing {outliers.sum()} outlier rows")
             df = df[~outliers]
         
         df = df.drop('price_change', axis=1)

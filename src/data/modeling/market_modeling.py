@@ -63,9 +63,9 @@ def run_traditional_models(df):
             # forecast = results.forecast(results.y, steps=5)
             # print(forecast)
         else:
-            print("⚠️ Not enough data to fit VAR model. Skipping.")
+            print("  Not enough data to fit VAR model. Skipping.")
     else:
-        print("⚠️ Not enough variables for a VAR model. Skipping.")
+        print("  Not enough variables for a VAR model. Skipping.")
 
 
 # 2. Deep Learning Models (PyTorch)

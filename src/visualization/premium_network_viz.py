@@ -232,7 +232,7 @@ def create_interactive_network(top_n=60):
         fig.write_image("data/premium_network.png", width=1920, height=1080, scale=2)
         logger.info(f"  Saved static image to data/premium_network.png")
     except:
-        logger.warning("   ⚠️ Could not save static image (install kaleido: pip install kaleido)")
+        logger.warning("     Could not save static image (install kaleido: pip install kaleido)")
     
     return fig
 

@@ -107,7 +107,7 @@ def verify_feature_store():
         features = fs.get_base_features()
         
         if features.empty:
-            logger.warning("⚠️ No features in feature store yet")
+            logger.warning("  No features in feature store yet")
             return False
         
         logger.info(f"  Feature store contains {len(features)} feature rows")

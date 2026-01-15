@@ -98,7 +98,7 @@ def main():
         print("  All tests passed! FinLagX is ready to run!")
         return True
     else:
-        print("⚠️ Some tests failed. Please check the errors above.")
+        print("  Some tests failed. Please check the errors above.")
         return False
 
 if __name__ == "__main__":

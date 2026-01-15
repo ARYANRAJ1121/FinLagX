@@ -56,7 +56,7 @@ def test_connection():
             if result.fetchone():
                 print(f"  TimescaleDB extension is installed")
             else:
-                print(f"⚠️ TimescaleDB extension not found")
+                print(f"  TimescaleDB extension not found")
     except Exception as e:
         print(f"  FinLagX Database Connection Failed: {e}")
         raise
@@ -68,7 +68,7 @@ def test_connection():
             result = conn.execute(text("SELECT version();"))
             print(f"  Connected to MLflow DB")
     except Exception as e:
-        print(f"⚠️ MLflow Database not ready (will be created by MLflow): {e}")
+        print(f"  MLflow Database not ready (will be created by MLflow): {e}")
     
     print("------------------------------------")
 
@@ -112,9 +112,9 @@ def check_tables():
                     
                     print(f"   • {table}: {count_display} rows")
                 except Exception as e:
-                    print(f"   • {table}: ⚠️ count unavailable ({e})")
+                    print(f"   • {table}:   count unavailable ({e})")
         else:
-            print("⚠️ No tables found in database")
+            print("  No tables found in database")
     
     print("------------------------------------")
 
@@ -148,7 +148,7 @@ def clean_processed_features():
                     conn.execute(text(f"TRUNCATE TABLE {table} RESTART IDENTITY CASCADE;"))
                     print(f"🧹 Cleaned {table}")
                 except Exception as e:
-                    print(f"⚠️ Could not clean {table}: {e}")
+                    print(f"  Could not clean {table}: {e}")
             conn.commit()
             print("  Cleaned all processed feature tables")
     except Exception as e:

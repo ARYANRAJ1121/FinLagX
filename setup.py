@@ -30,7 +30,7 @@ MLFLOW_TRACKING_URI=http://localhost:5000
 FRED_API_KEY=your_fred_api_key_here
 """)
             print("  Created .env file")
-            print("⚠️  IMPORTANT: Add your FRED_API_KEY to the .env file!")
+            print("   IMPORTANT: Add your FRED_API_KEY to the .env file!")
         else:
             print("  .env file already exists")
         return True
@@ -115,7 +115,7 @@ def wait_for_containers():
         
         print(f"   Still waiting... ({elapsed}s)")
     
-    print("⚠️ Containers started but health check timed out")
+    print("  Containers started but health check timed out")
     print("   This is usually fine - continuing with setup...")
     return True
 
@@ -158,12 +158,12 @@ def verify_mlflow():
                     print(f"   MLflow not ready yet, retrying... ({i+1}/{max_retries})")
                     time.sleep(10)
         
-        print("⚠️ MLflow server not responding")
+        print("  MLflow server not responding")
         print("   You can start it manually later with: docker-compose up mlflow")
         return True  # Don't fail setup for this
         
     except Exception as e:
-        print(f"⚠️ Could not verify MLflow: {e}")
+        print(f"  Could not verify MLflow: {e}")
         return True  # Don't fail setup for this
 
 def show_next_steps():

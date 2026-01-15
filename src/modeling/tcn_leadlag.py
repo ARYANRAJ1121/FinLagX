@@ -136,7 +136,7 @@ def get_granger_relationships(fs, symbol):
         for asset_x, asset_y, lag, score, sig in relationships:
             logger.info(f"      • {asset_x} leads {asset_y} by {lag} days (score: {score:.4f})")
     else:
-        logger.info(f"   ⚠️ No significant Granger relationships found")
+        logger.info(f"     No significant Granger relationships found")
     
     return relationships
 
@@ -171,7 +171,7 @@ def prepare_data_with_leadlag(fs, symbol, lookback=20):
         col_name = f'{asset_x}_lag{lag}'
         
         if col_name in df.columns or col_name in feature_cols:
-            logger.info(f"   ⚠️ Skipping duplicate feature: {col_name}")
+            logger.info(f"     Skipping duplicate feature: {col_name}")
             continue
         
         # Get leading asset data

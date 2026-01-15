@@ -78,7 +78,7 @@ class NewsDataPreprocessor:
         if not df.empty:
             logger.info(f"  Fetched {len(df)} articles")
         else:
-            logger.warning("⚠️ No news data found")
+            logger.warning("  No news data found")
         
         return df
     
@@ -266,7 +266,7 @@ class NewsDataPreprocessor:
                 self.db[collection_name].insert_many(records)
                 logger.info(f"  Saved {len(records)} articles to {collection_name}")
             else:
-                logger.warning("⚠️ No records to save")
+                logger.warning("  No records to save")
                 
         except Exception as e:
             logger.error(f"  Error saving to MongoDB: {e}")
@@ -293,7 +293,7 @@ class NewsDataPreprocessor:
         df = self.get_news_data(categories, start_date, end_date)
         
         if df.empty:
-            logger.warning("⚠️ No news data to process")
+            logger.warning("  No news data to process")
             return df
         
         # 2. Clean data

@@ -134,7 +134,7 @@ class FeatureStore:
             available_cols = [col for col in base_feature_cols if col in df.columns]
             missing_cols = set(base_feature_cols) - set(available_cols)
             if missing_cols:
-                logger.warning(f"⚠️ Missing columns in preprocessed data: {missing_cols}")
+                logger.warning(f"  Missing columns in preprocessed data: {missing_cols}")
             
             news_cols = [col for col in df.columns if col.startswith('news_')]
             if news_cols:

@@ -117,7 +117,7 @@ class VARAnalyzer:
                     'is_stationary': is_stationary
                 }
                 
-                status = "  Stationary" if is_stationary else "⚠️ Non-stationary"
+                status = "  Stationary" if is_stationary else "  Non-stationary"
                 logger.info(f"   {col}: {status} (p={p_value:.4f})")
                 
             except Exception as e:

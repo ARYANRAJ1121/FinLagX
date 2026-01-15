@@ -172,7 +172,7 @@ def verify_results():
             if granger_count > 0 and var_count > 0:
                 return True
             else:
-                logger.warning("⚠️ Some results tables are empty")
+                logger.warning("  Some results tables are empty")
                 return False
                 
     except Exception as e:

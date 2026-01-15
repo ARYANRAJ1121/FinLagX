@@ -110,7 +110,7 @@ class GrangerCausalityAnalyzer:
             test_data = data[[asset_y, asset_x]].dropna()
             
             if len(test_data) < 50:  # Need sufficient data
-                logger.warning(f"⚠️ Insufficient data for {asset_x} -> {asset_y}")
+                logger.warning(f"  Insufficient data for {asset_x} -> {asset_y}")
                 return None
             
             # Run Granger test for multiple lags
@@ -192,7 +192,7 @@ class GrangerCausalityAnalyzer:
             logger.info(f"  Completed {len(results_df)} tests")
             logger.info(f"   Significant relationships: {significant}/{len(results_df)}")
         else:
-            logger.warning("⚠️ No valid test results")
+            logger.warning("  No valid test results")
         
         return results_df
     
@@ -245,7 +245,7 @@ class GrangerCausalityAnalyzer:
         results_df = self.run_all_granger_tests(data_pivot)
         
         if results_df.empty:
-            logger.warning("⚠️ No valid results from Granger tests")
+            logger.warning("  No valid results from Granger tests")
             return results_df
         
         # 4. Save to database

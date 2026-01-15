@@ -196,6 +196,6 @@ if __name__ == "__main__":
         print(recent_data[['time', 'symbol', 'close_price', 'volume']].head())
         print("="*80)
     else:
-        logger.warning("⚠️ No data retrieved from database!")
+        logger.warning("  No data retrieved from database!")
     
     logger.info("\n  Market data pipeline completed!")

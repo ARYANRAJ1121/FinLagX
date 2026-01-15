@@ -42,7 +42,7 @@ def plot_clean_network():
         return
 
     if df.empty:
-        logger.warning("⚠️ No data found in Granger results. Run the analysis first.")
+        logger.warning("  No data found in Granger results. Run the analysis first.")
         return
     
     # FILTER: Top 50 strongest links only

@@ -53,7 +53,7 @@ class DataAligner:
         market_df['date'] = pd.to_datetime(market_df['date'])
         
         if news_df.empty:
-            logger.warning("⚠️ No news data, continuing with market only")
+            logger.warning("  No news data, continuing with market only")
             # Add empty news columns
             market_df['news_count'] = 0
             return market_df

@@ -57,11 +57,11 @@ selected_assets = st.multiselect(
 )
 
 if len(selected_assets) < 2:
-    st.warning("⚠️ Please select at least 2 assets for comparison")
+    st.warning("  Please select at least 2 assets for comparison")
     st.stop()
 
 if len(selected_assets) > 5:
-    st.warning("⚠️ Please select maximum 5 assets for optimal visualization")
+    st.warning("  Please select maximum 5 assets for optimal visualization")
     selected_assets = selected_assets[:5]
 
 st.markdown("---")
@@ -311,7 +311,7 @@ if metrics_list:
     
     with col3:
         st.warning("""
-        **⚠️ Risk Management**
+        **  Risk Management**
         
         - Monitor correlations regularly
         - Rebalance when correlations spike
