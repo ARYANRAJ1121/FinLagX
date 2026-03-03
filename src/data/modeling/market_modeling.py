@@ -9,25 +9,45 @@ import os
 PROCESSED_DATA_DIR = "data/processed/market"
 MODELS_DIR = "models"
 SENTIMENT_DATA_DIR = "data/raw/sentiment"
+ALIGNED_PARQUET = os.path.join(PROCESSED_DATA_DIR, "aligned_market_data.parquet")
 
 # Create models directory
 os.makedirs(MODELS_DIR, exist_ok=True)
 
 # Load processed data
-def load_processed_data(file_path):
+def load_processed_data(file_path=None, symbol=None):
     """
-    Loads processed market data from a specified CSV file.
+    Loads processed market data. Tries the aligned parquet first (includes sentiment),
+    falls back to individual CSV files.
     """
-    try:
-        df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
-        print(f"  Loaded processed data from {file_path}")
-        return df
-    except FileNotFoundError:
-        print(f"  Error: Processed data file not found at {file_path}")
-        return None
-    except Exception as e:
-        print(f"  An error occurred while loading data: {e}")
-        return None
+    # Try aligned parquet first (has sentiment features)
+    if os.path.exists(ALIGNED_PARQUET):
+        try:
+            df = pd.read_parquet(ALIGNED_PARQUET)
+            if symbol and 'symbol' in df.columns:
+                df = df[df['symbol'] == symbol]
+            if 'time' in df.columns:
+                df = df.set_index('time')
+                df.index.name = 'Date'
+            print(f"  Loaded aligned dataset with sentiment ({df.shape[0]} rows, {df.shape[1]} cols)")
+            return df
+        except Exception as e:
+            print(f"  Could not load aligned parquet: {e}")
+    
+    # Fallback to CSV
+    if file_path:
+        try:
+            df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
+            print(f"  Loaded processed data from {file_path}")
+            return df
+        except FileNotFoundError:
+            print(f"  Error: Processed data file not found at {file_path}")
+            return None
+        except Exception as e:
+            print(f"  An error occurred while loading data: {e}")
+            return None
+    
+    return None
 
 # 1. Traditional Models (statsmodels)
 def run_traditional_models(df):
