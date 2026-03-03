@@ -36,8 +36,8 @@
             - ✅ Saves the final feature-rich dataset to `data/processed/market/aligned_market_data.parquet`.
         - **Result**: Pipeline produces a unified dataset ready for the modeling phase.
 
-    ### 2. **Re-run Models with Sentiment Data**
-        - **Priority**: High
+    ### 2. ~~**Re-run Models with Sentiment Data**~~ ✅ COMPLETED (March 3, 2026)
+        - **Priority**: ~~High~~ → Done
         - **Task**: After the feature dataset is built, re-run the `market_modeling.py` and `pytorch_modeling.py` scripts.
         - **Goal**: Analyze the impact of the new sentiment feature on model performance and generate updated results (graphs, metrics in MLflow).
 
