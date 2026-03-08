@@ -1,65 +1,71 @@
-    # FinLagX Project Plan
+# FinLagX Project Plan
 
-    **Last Updated:** October 21, 2025
+**Last Updated:** March 8, 2026
 
-    ---
+---
 
-    ## 🎯 Current Phase: Model Integration & Visualization
+## 🎯 Current Phase: Advanced Modeling & Analysis
 
-    The project has successfully completed all data collection and feature engineering phases, including sentiment analysis. The immediate focus is on integrating this new sentiment feature into the models and presenting the final results in a user-friendly dashboard.
+The project has successfully completed the data pipelines, deep learning baseline, and the interactive Streamlit dashboard. The current focus is on building out Tree-Based models and exploring feature importance.
 
-    ---
+---
 
-    ##   Completed Milestones
+## ✅ Completed Milestones
 
-    -   [x] **Setup & Infrastructure**: Docker environment with TimescaleDB and MongoDB is fully operational.
-    -   [x] **Data Ingestion Pipeline**: Automated scripts for market, macro, and news data collection are in place.
-    -   [x] **Data Preprocessing**: Initial data cleaning and alignment pipelines are functional.
-    -   [x] **Statistical Modeling**: Implemented `statsmodels` for Granger Causality and VAR analysis.
-    -   [x] **Deep Learning Modeling**: Implemented `PyTorch` LSTM for time-series forecasting.
-    -   [x] **Experiment Tracking**: Integrated `MLflow` for tracking and visualizing model performance.
-    -   [x] **Version Control**: Modeling work has been pushed to the `modelingdev` branch on GitHub.
-    -   [x] **Sentiment Analysis**: Implemented `FinBERT` pipeline to generate and store sentiment scores for news articles.
+- [x] **Setup & Infrastructure**: Docker environment with TimescaleDB and MongoDB is fully operational.
+- [x] **Data Ingestion Pipeline**: Automated scripts for market, macro, and news data collection are in place.
+- [x] **Data Preprocessing**: Initial data cleaning and alignment pipelines are functional.
+- [x] **Statistical Modeling**: Implemented `statsmodels` for Granger Causality and VAR analysis.
+- [x] **Deep Learning Modeling**: Implemented `PyTorch` LSTM for time-series forecasting.
+- [x] **Experiment Tracking**: Integrated `MLflow` for tracking and visualizing model performance.
+- [x] **Version Control**: Modeling work has been pushed to the `modelingdev` branch on GitHub.
+- [x] **Sentiment Analysis**: Implemented `FinBERT` pipeline to generate and store sentiment scores for news articles.
+- [x] **Dashboarding**: Streamlit dashboard successfully built and integrated with model outputs.
+- [x] **Baseline Tree Models**: Created Tabular LightGBM model utilizing rolling windows to beat deep learning baseline.
 
-    ---
+---
 
-    ## ⏳ Next Steps & To-Do
+## ⏳ Next Steps & To-Do
 
-    ### 1. ~~**Build Final Feature Dataset (Evening Task)**~~ ✅ COMPLETED (March 3, 2026)
-        - **Priority**: ~~High~~ → Done
-        - **Task**: Re-implemented `src/preprocessing/build_features.py`:
-            - ✅ Fetches market data from TimescaleDB (via MarketDataPreprocessor).
-            - ✅ Fetches news articles and their FinBERT sentiment scores from MongoDB.
-            - ✅ Aggregates daily sentiment (mean, std, min, max, count per category).
-            - ✅ Aligns and merges market + sentiment on a daily basis (left join).
-            - ✅ Adds derived features (SMA crossover, volatility regime, return sign).
-            - ✅ Saves the final feature-rich dataset to `data/processed/market/aligned_market_data.parquet`.
-        - **Result**: Pipeline produces a unified dataset ready for the modeling phase.
+### 1. ~~**Build Final Feature Dataset (Evening Task)**~~ ✅ COMPLETED (March 3, 2026)
 
-    ### 2. ~~**Re-run Models with Sentiment Data**~~ ✅ COMPLETED (March 3, 2026)
-        - **Priority**: ~~High~~ → Done
-        - **Task**: After the feature dataset is built, re-run the `market_modeling.py` and `pytorch_modeling.py` scripts.
-        - **Goal**: Analyze the impact of the new sentiment feature on model performance and generate updated results (graphs, metrics in MLflow).
+    - **Priority**: ~~High~~ → Done
+    - **Task**: Re-implemented `src/preprocessing/build_features.py`.
+    - **Result**: Pipeline produces a unified dataset ready for the modeling phase.
 
-    ### 3. **Develop the Streamlit Dashboard**
-        - **Priority**: Medium
-        - **Task**: Begin development of the `Streamlit` dashboard to visualize project outputs.
-        - **Initial Features**:
-            - Display the lead-lag dependency graph from the `statsmodels` analysis.
-            - Show the `PyTorch` model's predictions vs. actuals chart.
-            - Create interactive charts for exploring the raw market and macro data, including news sentiment.
+### 2. ~~**Re-run Models with Sentiment Data**~~ ✅ COMPLETED (March 3, 2026)
 
-    ---
+    - **Priority**: ~~High~~ → Done
+    - **Task**: After the feature dataset is built, re-run the `market_modeling.py` and `pytorch_modeling.py` scripts.
+    - **Goal**: Analyze the impact of the new sentiment feature on model performance and generate updated results.
 
-    ##  backlog & Future Enhancements
+### 3. ~~**Develop the Streamlit Dashboard**~~ ✅ COMPLETED (March 8, 2026)
 
-    -   **Solve News Data Limitation**: The RSS feeds provide limited historical data (~2 years).
-        - **Option A**: Integrate a large, pre-existing news dataset from **Kaggle**.
-        - **Option B**: Develop a more robust web scraper using `BeautifulSoup` to manually collect historical news archives.
-    -   **Refine Preprocessing**:
-        - Implement more advanced feature engineering (e.g., volatility metrics, technical indicators).
-        - Explore clustering techniques to group similar assets.
-    -   **Enhance Modeling**:
-        - Experiment with more advanced `PyTorch` models like **Transformers**.
-        - Tune hyperparameters for the LSTM model using MLflow's tracking capabilities.
-    -   **Orchestration**: Re-evaluate integrating **Prefect** for more robust ETL pipeline orchestration.
+    - **Priority**: ~~Medium~~ → Done
+    - **Task**: Begin development of the `Streamlit` dashboard to visualize project outputs.
+    - **Initial Features**:
+        - ✅ Display the lead-lag dependency graph from the `statsmodels` analysis.
+        - ✅ Show the `PyTorch` model's predictions vs. actuals chart.
+        - ✅ Create interactive charts for exploring the raw market and macro data, including news sentiment.
+
+---
+
+## 🗃️ Backlog & Future Enhancements
+
+### 1. Machine Learning Model Improvements
+
+- ~~**Introduce Tree-Based Benchmarks (LightGBM/XGBoost)**~~: ✅ COMPLETED (March 8, 2026). Implemented Gradient Boosting trees as a strong baseline model, framing time-series forecasting as a tabular learning problem.
+- **Time-Series Transformers**: Implement a Transformer-based architecture specifically designed for time-series forecasting.
+- **Target Engineering (Direction First, Magnitude Second)**: Utilize a two-stage Hurdle Model approach (Classification for direction, Regression for magnitude).
+
+### 2. Dataset & Feature Engineering Improvements
+
+- **Solve News Data Limitation**: Obtain historical news data (2+ years) to better evaluate sentiment impact.
+- **Refine Preprocessing & Advanced Indicators**:
+  - Implement advanced technical indicators (Momentum, RSI, MACD, Bollinger Bands, ATR) for better short-term signaling.
+  - Explore clustering techniques to group similar assets.
+
+### 3. MLOps & Orchestration
+
+- **Hyperparameter Tuning**: Tune hyperparameters for models using MLflow's tracking capabilities.
+- **Orchestration**: Re-evaluate integrating **Prefect** for more robust ETL pipeline orchestration.
