@@ -15,7 +15,8 @@ import plotly.express as px
 from datetime import datetime, timedelta
 
 # Constants
-DATA_FOLDER = Path("d:/FinLagX/data")
+project_root = Path(__file__).parent.parent
+DATA_FOLDER = project_root / "data" / "results"
 ASSETS = [
     "bitcoin", "crude_oil", "dax40", "dowjones", "eurusd", 
     "ftse100", "gbpusd", "gold", "nasdaq100", "nifty50", 

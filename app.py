@@ -261,11 +261,11 @@ st.markdown("## 🌐 Granger Causality Network Preview")
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    network_path = Path("data/network_dark_premium.png")
+    network_path = project_root / "data" / "processed" / "graphs" / "lead_lag_graph.png"
     if network_path.exists():
         st.image(str(network_path), caption="Granger Causality Network - Top Market Relationships")
     else:
-        st.warning("Network visualization not found. Please run the premium PNG generator first.")
+        st.warning("Network visualization not found. Please run the statistical models first.")
 
 with col2:
     st.markdown("""
