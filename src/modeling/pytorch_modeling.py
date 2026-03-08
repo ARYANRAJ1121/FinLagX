@@ -71,6 +71,7 @@ def main():
     )
     
     # 2. Set up MLflow
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
     
     with mlflow.start_run() as run:

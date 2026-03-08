@@ -340,7 +340,8 @@ def export_to_csv(symbol, data_dict, y_test, predictions, metrics):
     """Export all results to CSV files with tcn_leadlag prefix"""
     
     # Create data folder if it doesn't exist
-    data_folder = 'd:/FinLagX/data'
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    data_folder = os.path.join(project_root, 'data', 'results')
     os.makedirs(data_folder, exist_ok=True)
     
     symbol_lower = symbol.lower()
