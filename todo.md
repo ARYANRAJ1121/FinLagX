@@ -63,7 +63,7 @@ The project has successfully completed the data pipelines, deep learning baselin
 - **Solve News Data Limitation**: Obtain historical news data (2+ years) to better evaluate sentiment impact.
 - **Refine Preprocessing & Advanced Indicators**:
   - ~~Implement advanced technical indicators (Momentum, RSI, MACD, Bollinger Bands, ATR) for better short-term signaling.~~ ✅ COMPLETED (March 11, 2026)
-  - Explore clustering techniques to group similar assets.
+  - Explore clustering techniques to group similar assets. ✅ COMPLETED (March 12, 2026). Implemented K-Means clustering in `src/preprocessing/asset_clustering.py`.
 
 ### 3. MLOps & Orchestration
 

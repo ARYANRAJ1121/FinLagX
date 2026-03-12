@@ -67,7 +67,7 @@ def run_tuning():
     logger.info(f"Best Params: {study.best_params}")
     
     # Log best params to MLflow
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment("FinLagX_Hyperparameter_Tuning")
     
     with mlflow.start_run():

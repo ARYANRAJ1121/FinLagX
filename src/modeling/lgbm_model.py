@@ -72,7 +72,7 @@ def train_lightgbm_model():
     logger.info(f"📊 Training on {len(X_train)} rows, Testing on {len(X_test)} rows")
     
     # 3. Setup MLflow
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
     
     with mlflow.start_run() as run:

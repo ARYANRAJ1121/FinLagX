@@ -68,7 +68,7 @@ def train_hurdle_model():
     y_mag_train, y_mag_test = y_mag.iloc[:split_idx], y_mag.iloc[split_idx:]
 
     # 3. MLflow Setup
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
     
     with mlflow.start_run() as run:

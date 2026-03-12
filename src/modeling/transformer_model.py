@@ -67,7 +67,7 @@ def train_transformer():
     logger.info("🚀 Starting FinLagX Transformer Modeling Pipeline...")
     X_train, y_train, X_test, y_test, input_dim = prepare_transformer_data(PROCESSED_DATA_PATH, TARGET_SYMBOL, SEQ_LENGTH)
     
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment("FinLagX_Transformer_Research")
     
     with mlflow.start_run():
