@@ -95,13 +95,13 @@ with col1:
     st.markdown("<div class='impact-metric'><h2>15+</h2><p>Global Assets</p></div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='impact-metric'><h2>53%+</h2><p>Directional Accuracy</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='impact-metric'><h2>71.4%</h2><p>Peak F1-Score (SP500)</p></div>", unsafe_allow_html=True)
 
 with col3:
-    st.markdown("<div class='impact-metric'><h2>4</h2><p>ML Models Deployed</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='impact-metric'><h2>6+</h2><p>Neural Architectures</p></div>", unsafe_allow_html=True)
 
 with col4:
-    st.markdown("<div class='impact-metric'><h2>100%</h2><p>Open Source</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='impact-metric'><h2>100%</h2><p>Orchestrated (Prefect)</p></div>", unsafe_allow_html=True)
 
 st.markdown("### Key Implementations")
 
@@ -112,20 +112,21 @@ achievements = {
         "Dynamic lag optimization (1-10 days)",
         "Cross-asset dependency mapping"
     ],
-    "🤖 Deep Learning Infrastructure": [
-        "LSTM-based return prediction",
-        "Lead-lag feature engineering",
-        "MLflow experiment tracking",
-        "Model versioning and deployment"
+    "🤖 Neural Intelligence Core": [
+        "Time-Series Transformer with Multi-Head Attention",
+        "Two-Stage Hurdle Model (Direction & Magnitude)",
+        "LSTM with lead-lag engineered features",
+        "Optuna Automated Hyperparameter Tuning",
+        "MLflow Centralized Tracking (Dockerized)"
     ],
-    "🗄️ Data Engineering Pipeline": [
-        "TimescaleDB time-series database",
-        "Real-time data ingestion",
-        "Feature store architecture",
-        "Automated preprocessing"
+    "🏗️ Reliability & Testing Framework": [
+        "Automated Prefect Pipeline Orchestration",
+        "Robust unit testing for technical indicators",
+        "TimescaleDB optimized for financial workloads",
+        "Systematic backtesting with 2+ years of data"
     ],
     "📊 Visualization & Analytics": [
-        "Interactive Streamlit dashboard",
+        "Interactive Streamlit Intelligence Portal",
         "Network topology analysis",
         "Premium static visualizations",
         "Multi-asset correlation analysis"
